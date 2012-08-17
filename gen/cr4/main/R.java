@@ -10,15 +10,54 @@ package cr4.main;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int black=0x7f040001;
+        public static final int blue1=0x7f040002;
+        public static final int darkgreen=0x7f040003;
+        public static final int darkolivegreen4=0x7f040005;
+        public static final int gold2=0x7f040007;
+        public static final int green4=0x7f040004;
+        public static final int purple4=0x7f040006;
+        public static final int red=0x7f040008;
+        /**  Source=http://www.somacon.com/p142.php 
+ main.xml 
+         */
+        public static final int white=0x7f040000;
+        public static final int yello=0x7f040009;
+    }
     public static final class drawable {
         public static final int cr4_project_panda_1_panda=0x7f020000;
         public static final int ic_launcher=0x7f020001;
     }
+    public static final class id {
+        public static final int main_bt_stop=0x7f060000;
+    }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int main_original=0x7f030001;
     }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        public static final int app_name=0x7f050001;
+        public static final int dlg_confirm_quit_cancel=0x7f05000e;
+        public static final int dlg_confirm_quit_message=0x7f05000c;
+        public static final int dlg_confirm_quit_quit=0x7f05000d;
+        public static final int dlg_confirm_quit_title=0x7f05000b;
+        /**  /v1.xml 
+ dlg_get_texts_list.xml 
+         */
+        public static final int dlg_texts_list_tv_title=0x7f050008;
+        public static final int hello=0x7f050000;
+        public static final int v1_MI_get_texts=0x7f050006;
+        public static final int v1_MI_speed_control=0x7f050007;
+        public static final int v1_MI_texts=0x7f050004;
+        public static final int v1_MI_web_view=0x7f050005;
+        /**  v1.xml 
+         */
+        public static final int v1_bt_play=0x7f050002;
+        public static final int v1_bt_stop=0x7f050003;
+        public static final int v1_opt_menu_refresh_list=0x7f05000a;
+        /**  /dlg_get_texts_list.xml 
+         */
+        public static final int v1_opt_menu_texts_list=0x7f050009;
     }
 }

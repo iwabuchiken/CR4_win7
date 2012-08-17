@@ -10,7 +10,7 @@
         android:icon="@drawable/cr4_project_panda_1_panda"
         android:label="@string/app_name" >
         <activity
-            android:name=".CR4Activity"
+            android:name=".MainActv"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
