@@ -1,15 +1,23 @@
 package cr4.main;
 
+import java.util.List;
+
+import c4.utils.Methods;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActv extends ListActivity {
-    /** Called when the activity is first created. */
+
+	public static List<String> textList;
+	public static ArrayAdapter<String> adp;
+	
+	/** Called when the activity is first created. */
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		/*----------------------------
@@ -24,6 +32,8 @@ public class MainActv extends ListActivity {
 		
 		setTitle(this.getClass().getName());
 
+		Methods.set_text_list(this);
+		
 	}//public void onCreate(Bundle savedInstanceState)
 
 	@Override
