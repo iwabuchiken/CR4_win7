@@ -2,8 +2,12 @@ package cr4.main;
 
 import java.util.List;
 
+import cr4.listeners.ButtonOnClickListener;
+import cr4.listeners.ButtonOnTouchListener;
+
 import c4.utils.MainListAdapter;
 import c4.utils.Methods;
+import c4.utils.SpeakTask;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.graphics.Color;
@@ -14,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +32,8 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	public static TextToSpeech tts = null;
 	
 	public static ListView main_lv;
-	
+
+	public static SpeakTask st;
 	/*----------------------------
 	 * Preferences
 		----------------------------*/
@@ -42,7 +48,9 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		 * 2. Set content, title
 		 * 
 		 * 3. Set text list
-		 * 4. Initialize => tts, lv
+		 * 4. Initialize => tts, lv, st
+		 * 
+		 * 5. Set listeners
 		 * 
 		----------------------------*/
 		super.onCreate(savedInstanceState);
@@ -58,11 +66,35 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		Methods.set_text_list(this);
 		
 
+		/*----------------------------
+		 * 4. Initialize => tts, lv
+			----------------------------*/
 		tts = new TextToSpeech(this, this);
 		
 		main_lv = this.getListView();
 		
+		st = new SpeakTask(this);
+		
+		/*----------------------------
+		 * 5. Set listeners
+			----------------------------*/
+		set_listeners();
+		
+		
 	}//public void onCreate(Bundle savedInstanceState)
+
+	private void set_listeners() {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		Button bt_stop = (Button) findViewById(R.id.main_bt_stop);
+		
+		bt_stop.setTag(Methods.ButtonTags.main_bt_stop);
+		
+		bt_stop.setOnTouchListener(new ButtonOnTouchListener(this));
+		bt_stop.setOnClickListener(new ButtonOnClickListener(this));
+		
+	}//private void set_listeners()
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

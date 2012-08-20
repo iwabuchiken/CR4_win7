@@ -2,6 +2,10 @@ package cr4.listeners;
 
 import java.io.File;
 
+import cr4.main.MainActv;
+
+import c4.utils.Methods;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Vibrator;
@@ -59,15 +63,98 @@ public class ButtonOnClickListener implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 //		//
-//		Methods.ButtonTags tag_name = (Methods.ButtonTags) v.getTag();
+		Methods.ButtonTags tag = (Methods.ButtonTags) v.getTag();
 //
-//		vib.vibrate(Methods.vibLength_click);
+		vib.vibrate(Methods.vibLength_click);
 		
 		//
-//		switch (tag_name) {
-//		case main_bt_play://---------------------------------------------------------
+		switch (tag) {
 		
-//		}//switch (tag_name)
+		case main_bt_stop://---------------------------------------------------------
+
+			// Log
+			Log.d("ButtonOnClickListener.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "onClick: main_bt_stop");
+
+			if (MainActv.tts.isSpeaking()) {
+				
+				// Log
+				Log.d("ButtonOnClickListener.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "tts is speaking");
+				
+				
+				MainActv.tts.stop();
+				
+				// Log
+				Log.d("ButtonOnClickListener.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "tts stopped");
+				
+				
+			} else {//if (MainActv.tts)
+				// Log
+				Log.d("ButtonOnClickListener.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "tts is not speaking");
+				
+			}//if (MainActv.tts)
+			
+			
+			boolean res = false;
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "MainActv.st.getStatus().name(): " + MainActv.st.getStatus().name());
+			
+			
+//			if (MainActv.st != null) {
+				
+				res = MainActv.st.cancel(true);
+				
+//			}//if (MainActv.st != null)
+//				res = MainActv.st.cancel(true);
+			
+//			if (res == true) {
+//				
+//				MainActv.st = null;
+//				
+//				// Log
+//				Log.d("ButtonOnClickListener.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "MainActv.st => null");
+//				
+//			}//if (res == true)
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Cansel result: " + res);
+			
+			
+//			if (MainActv.tts.isSpeaking()) {
+//				
+//				MainActv.tts.stop();
+//				
+//				// Log
+//				Log.d("ButtonOnClickListener.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "tts stopped");
+//				
+//				
+//			}//if (MainActv.tts)
+		
+			break;// case main_bt_stop
+			
+		}//switch (tag)
 		
 	}//public void onClick(View v)
 

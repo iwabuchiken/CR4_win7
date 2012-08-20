@@ -145,20 +145,7 @@ public class Methods {
 	
 	public static enum ButtonTags {
 		// MainActivity.java
-		ib_up,
-		
-		// DBAdminActivity.java
-		db_manager_activity_create_table, db_manager_activity_drop_table, 
-		db_manager_activity_register_patterns,
-		
-		// thumb_activity.xml
-		thumb_activity_ib_back, thumb_activity_ib_bottom, thumb_activity_ib_top,
-		
-		// image_activity.xml
-		image_activity_back,
-		
-		// TIListAdapter.java
-		tilist_cb,
+		main_bt_stop,
 		
 	}//public static enum ButtonTags
 	
@@ -950,10 +937,13 @@ public class Methods {
 		 * 1-2. Modify text
 		 * 2. Speak
 			----------------------------*/
+		MainActv.st = new SpeakTask(actv);
 		
-		SpeakTask st = new SpeakTask(actv);
+		MainActv.st.execute(new Integer[]{position});
 		
-		st.execute(new Integer[]{position});
+//		SpeakTask st = new SpeakTask(actv);
+//		
+//		st.execute(new Integer[]{position});
 
 //		// Log
 //		Log.d("Methods.java" + "["

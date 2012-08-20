@@ -21,6 +21,8 @@ public class SpeakTask extends AsyncTask<Integer, Integer, String>{
 	
 	int position;
 	
+	private boolean running = true;
+	
 	//
 	public SpeakTask(Activity actv) {
 		
@@ -32,8 +34,87 @@ public class SpeakTask extends AsyncTask<Integer, Integer, String>{
 	@Override
 	protected String doInBackground(Integer... positions) {
 		
+		// Log
+		Log.d("SpeakTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "doInBackground => Starts" + "(position=" + positions[0] + ")");
+		
+		
 		this.position = positions[0];
 		
+		
+		
+		while (running) {
+			
+			do_task();
+			
+			if (isCancelled()) {
+				
+				// Log
+				Log.d("SpeakTask.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "isCancelled(): " + isCancelled());
+				
+		        if (MainActv.tts.isSpeaking()) {
+		        	
+		        	MainActv.tts.stop();
+		        	
+		        }
+		        
+				break;
+			}//if (running)
+			
+		}//while (running)
+//			do_task();
+		
+//		for (int i = position; i < MainActv.textList.size(); i++) {
+//			
+//			String text = MainActv.textList.get(position);
+//			
+//			Methods.start_speech_speak(text);
+//			
+//			while(MainActv.tts.isSpeaking());
+//			
+//			try {
+//				Thread.sleep(700);
+//			} catch (InterruptedException e) {
+//				// Log
+//				Log.d("SpeakTask.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception" + e.toString());
+//				
+//			}
+//			
+//			if (MainActv.textList.size() - 1 > position) {
+//				
+//				position += 1;
+//				
+//				publishProgress(position);
+//				
+////				Methods.set_pref(actv, MainActv.prefName_list_position, position);
+////				
+////				MainActv.adp.notifyDataSetChanged();
+//				
+//			}//if (MainActv.textList.size() < )
+//			
+//			
+//		}//for (int i = position; i < MainActv.textList.size(); i++)
+		
+		
+//		String text = MainActv.textList.get(position);
+////		String text = MainActv.textList.get(positions[0]);
+//		
+//		Methods.start_speech_speak(text);
+//		
+//		while(MainActv.tts.isSpeaking());
+		
+		return "";
+//		return null;
+	}
+
+	private void do_task() {
 		for (int i = position; i < MainActv.textList.size(); i++) {
 			
 			String text = MainActv.textList.get(position);
@@ -42,16 +123,16 @@ public class SpeakTask extends AsyncTask<Integer, Integer, String>{
 			
 			while(MainActv.tts.isSpeaking());
 			
-			try {
-				Thread.sleep(700);
-			} catch (InterruptedException e) {
-				// Log
-				Log.d("SpeakTask.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Exception" + e.toString());
-				
-			}
+//			try {
+//				Thread.sleep(700);
+//			} catch (InterruptedException e) {
+//				// Log
+//				Log.d("SpeakTask.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception" + e.toString());
+//				
+//			}
 			
 			if (MainActv.textList.size() - 1 > position) {
 				
@@ -68,16 +149,8 @@ public class SpeakTask extends AsyncTask<Integer, Integer, String>{
 			
 		}//for (int i = position; i < MainActv.textList.size(); i++)
 		
-		
-//		String text = MainActv.textList.get(position);
-////		String text = MainActv.textList.get(positions[0]);
-//		
-//		Methods.start_speech_speak(text);
-//		
-//		while(MainActv.tts.isSpeaking());
-		
-		return "";
-	}
+	}//private void do_task()
+
 
 	@Override
 	protected void onPostExecute(String result) {
@@ -119,6 +192,23 @@ public class SpeakTask extends AsyncTask<Integer, Integer, String>{
 		
 //		super.onProgressUpdate(values);
 	}//protected void onProgressUpdate(Integer... values)
+
+
+	@Override
+	protected void onCancelled() {
+		
+		this.running = false;
+		
+		// Log
+		Log.d("SpeakTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "this.running: " + this.running);
+		
+        if (MainActv.tts.isSpeaking()) {
+        	MainActv.tts.stop();
+        }
+
+	}
 	
 	
 }//public class SearchTask
