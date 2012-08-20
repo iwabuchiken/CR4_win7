@@ -1,6 +1,8 @@
 package c4.utils;
 
 
+
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
@@ -1083,7 +1085,8 @@ public class Methods {
 		/*----------------------------
 		 * 1. Get data
 		 * 1-2. Dismiss dlg
-		 * 2. Set text
+		 * 2. Save text to db
+		 * Set text
 			----------------------------*/
 		EditText et_text = (EditText) dlg.findViewById(R.id.dlg_register_texts_et_text);
 		
@@ -1107,6 +1110,13 @@ public class Methods {
 			----------------------------*/
 		dlg.dismiss();
 		
+		
+		/*----------------------------
+		 * 2. Save text to db
+			----------------------------*/
+		Methods.save_text_to_db(actv, text);
+		
+		
 		/*----------------------------
 		 * 2. Set text
 			----------------------------*/
@@ -1114,5 +1124,114 @@ public class Methods {
 		Methods.set_text_list(actv, text);
 		
 	}//public static void register_texts(Activity actv, Dialog dlg)
+
+	private static void save_text_to_db(Activity actv, String text) {
+		/*----------------------------
+		 * 1. Set up db
+		 * 2. Table exists?
+		 * 		=> If no, create one
+		 * 3. Save text to db
+		 * 
+		 * 9. Close db
+			----------------------------*/
+		/*----------------------------
+		 * 1. Set up db
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+//		dbu.dropTable(actv, wdb, MainActv.tableName_chinese_texts);
+		
+		/*----------------------------
+		 * 2. Table exists?
+			----------------------------*/
+		boolean res = dbu.tableExists(wdb, MainActv.tableName_chinese_texts);
+		
+		if (res != false) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + MainActv.tableName_chinese_texts);
+			
+		} else {//if (res != false)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + MainActv.tableName_chinese_texts);
+			
+			// Create one
+			res = dbu.createTable(
+											wdb, 
+											MainActv.tableName_chinese_texts, 
+											MainActv.cols_texts,
+											MainActv.col_types_texts);
+			
+			if (res == true) {
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: " + MainActv.tableName_chinese_texts);
+				
+			} else {//if (res == true)
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Create table failed: " + MainActv.tableName_chinese_texts);
+				
+			}//if (res == true)
+			
+		}//if (res != false)
+
+		/*----------------------------
+		 * 3. Save text to db
+			----------------------------*/
+		res = Methods.insertData_text(wdb, dbu, text);
+		
+		if (res == true) {
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Text save to db");
+			
+		} else {//if (res == true)
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Text save to db");
+			
+		}//if (res == true)
+		
+		/*----------------------------
+		 * 9. Close db
+			----------------------------*/
+		wdb.close();
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "wdb => Closed");
+		
+	}//private static void save_text_to_db(String text)
+
+	private static boolean insertData_text(SQLiteDatabase wdb, DBUtils dbu,
+			String text) {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		long created_at = Methods.getMillSeconds_now();
+		long modified_at = Methods.getMillSeconds_now();
+		
+		Object[] values = {text, "", created_at, modified_at, "", ""};
+		
+		return dbu.insertData(wdb, MainActv.tableName_chinese_texts, MainActv.cols_texts, values);
+		
+	}//private static boolean insertData_text()
 
 }//public class Methods

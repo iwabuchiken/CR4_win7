@@ -420,6 +420,61 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//try
 	}//public insertData(String tableName, String[] columnNames, String[] values)
 
+	public boolean insertData(SQLiteDatabase db, String tableName, 
+			String[] columnNames, Object[] values) {
+
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		try {
+			// Start transaction
+			db.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+			// Put values
+			val.put(columnNames[0], (String) values[0]);
+			val.put(columnNames[1], (String) values[1]);
+			val.put(columnNames[2], (Long) values[2]);
+			val.put(columnNames[3], (Long) values[3]);
+			val.put(columnNames[4], (String) values[4]);
+			val.put(columnNames[5], (String) values[5]);
+			
+//			for (int i = 0; i < columnNames.length; i++) {
+//			val.put(columnNames[i], values[i]);
+//			}//for (int i = 0; i < columnNames.length; i++)
+			
+			// Insert data
+			db.insert(tableName, null, val);
+			
+			// Set as successful
+			db.setTransactionSuccessful();
+			
+			// End transaction
+			db.endTransaction();
+			
+			// Log
+			//Log.d("DBUtils.java" + "["
+			//+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			//+ "]", "Data inserted => " + "(" + columnNames[0] + " => " + values[0] + 
+			//" / " + columnNames[3] + " => " + values[3] + ")");
+			
+			return true;
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Exception! => " + e.toString());
+			
+			return false;
+		}//try
+		
+		////debug
+		//return false;
+	
+	}//public insertData(String tableName, String[] columnNames, String[] values)
+
 	public boolean deleteData(Activity actv, SQLiteDatabase db, String tableName, long file_id) {
 		/*----------------------------
 		 * Steps

@@ -47,6 +47,10 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	/*----------------------------
 	 * DB
 		----------------------------*/
+	public static String dbName = "cr4.db";
+	
+	public static String tableName_chinese_texts = "chinese_texts";
+	
 	public static String[] cols_texts =			 {"text",		 "url", 	"created_at", "modified_at", "genre", 	"memo"};
 	
 	public static String[] col_types_texts = {"TEXT", "TEXT", "INTEGER", "INTEGER",	 "INTEGER", "TEXT"};
