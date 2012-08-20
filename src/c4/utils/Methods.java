@@ -19,6 +19,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,9 +35,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,6 +59,7 @@ import org.apache.commons.lang.StringUtils;
 import cr4.listeners.DialogButtonOnClickListener;
 import cr4.listeners.DialogButtonOnTouchListener;
 import cr4.main.MainActv;
+import cr4.main.R;
 
 public class Methods {
 
@@ -291,7 +296,7 @@ public class Methods {
 	/****************************************
 	 *
 	 * 
-	 * <Caller> 1. Methods.enterDir()
+	 * <Caller> 1. 
 	 * 
 	 * <Desc> 1. <Params> 1.
 	 * 
@@ -299,42 +304,42 @@ public class Methods {
 	 * 
 	 * <Steps> 1.
 	 ****************************************/
-	public static boolean clear_prefs_currentPath(Activity actv, String newPath) {
+	public static boolean prefs_clear(Activity actv, String pref_name) {
 		
-//		SharedPreferences prefs = 
-//				actv.getSharedPreferences(MainActv.prefs_current_path, MainActv.MODE_PRIVATE);
-//
-//		/*----------------------------
-//		 * 2. Get editor
-//			----------------------------*/
-//		SharedPreferences.Editor editor = prefs.edit();
-//
-//		/*----------------------------
-//		 * 3. Clear
-//			----------------------------*/
-//		try {
-//			
-//			editor.clear();
-//			editor.commit();
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Prefs cleared");
-//			
-//			return true;
-//			
-//		} catch (Exception e) {
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Excption: " + e.toString());
-//			
-//			return false;
-//		}
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		return false;
+		/*----------------------------
+		 * 2. Get editor
+			----------------------------*/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/*----------------------------
+		 * 3. Clear
+			----------------------------*/
+		try {
+			
+			editor.clear();
+			editor.commit();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Prefs cleared");
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
+//		return false;
 		
 	}//public static boolean clear_prefs_current_path(Activity actv, Strin newPath)
 
@@ -667,47 +672,48 @@ public class Methods {
 	}//public static boolean set_pref(String pref_name, String value)
 
 	public static boolean set_pref(Activity actv, String pref_name, int value) {
-//		SharedPreferences prefs = 
-//				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
-//
-//		/*----------------------------
-//		 * 2. Get editor
-//			----------------------------*/
-//		SharedPreferences.Editor editor = prefs.edit();
-//
-//		/*----------------------------
-//		 * 3. Set value
-//			----------------------------*/
-//		editor.putInt(pref_name, value);
-//		
-//		try {
-//			editor.commit();
-//			
-//			return true;
-//			
-//		} catch (Exception e) {
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Excption: " + e.toString());
-//			
-//			return false;
-//		}
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		return false;
+		/*----------------------------
+		 * 2. Get editor
+			----------------------------*/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/*----------------------------
+		 * 3. Set value
+			----------------------------*/
+		editor.putInt(pref_name, value);
+		
+		try {
+			editor.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
+//		return false;
 	}//public static boolean set_pref(String pref_name, String value)
 
 	public static int get_pref(Activity actv, String pref_name, int defValue) {
-//		SharedPreferences prefs = 
-//				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
-//
-//		/*----------------------------
-//		 * Return
-//			----------------------------*/
-//		return prefs.getInt(pref_name, defValue);
+		
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		return -1;
+		/*----------------------------
+		 * Return
+			----------------------------*/
+		return prefs.getInt(pref_name, defValue);
+
+//		return -1;
 	}//public static boolean set_pref(String pref_name, String value)
 
 	public static Dialog dlg_template_cancel(Activity actv, int layoutId, int titleStringId,
@@ -896,9 +902,10 @@ public class Methods {
 		/*----------------------------
 		 * 3. Prep => Adapter
 			----------------------------*/
-		MainActv.adp = new ArrayAdapter<String>(
+//		MainActv.adp = new ArrayAdapter<String>(
+		MainActv.adp = new MainListAdapter(
 				actv,
-				android.R.layout.simple_list_item_1,
+				R.layout.list_row_main,
 				MainActv.textList
 			);
 
@@ -910,5 +917,156 @@ public class Methods {
 		lv.setAdapter(MainActv.adp);
 		
 	}//public static void set_text_list(Activity actv)
-	
+
+	public static String find_text_trunk(String text) {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		String reg1 = "^\\d+\\.(.+)$";
+		Pattern p = Pattern.compile(reg1);
+		Matcher m = p.matcher(text);
+
+		return m.find() ? m.group(1) : null;
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "m.find(): " + m.find());
+//		
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "m.group(0): " + m.group(0));
+//
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "m.group(1): " + m.group(1));
+
+		
+	}//public static void find_text_trunk(String text)
+
+	public static void start_speech(Activity actv, ListView lv, View v, int position) {
+		/*----------------------------
+		 * 1. Get text
+		 * 1-2. Modify text
+		 * 2. Speak
+			----------------------------*/
+		
+		SpeakTask st = new SpeakTask(actv);
+		
+		st.execute(new Integer[]{position});
+
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "message" + lv.getchi);
+		
+		
+		/*----------------------------
+		 * 1. Get text
+			----------------------------*/
+//		String text = (String) lv.getItemAtPosition(position);
+
+//		if (position > MainActv.textList.size()) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "position > MainActv.textList.size()");
+//			
+//			return;
+//			
+//		}//if (position > MainActv.textList.size())
+//
+//		for (int i = position; i < MainActv.textList.size(); i++) {
+//			SpeakTask st = new SpeakTask(actv);
+//			
+//			st.execute(new Integer[]{position});
+//		}
+		
+//        if (MainActv.tts.isSpeaking()) {
+//        	MainActv.tts.stop();
+//        }
+
+//		for (int i = position; i < MainActv.textList.size(); i++) {
+//			
+//			Methods.set_pref(actv, MainActv.prefName_list_position, i);
+//			
+//			MainActv.adp.notifyDataSetChanged();
+//			
+////			MainActv.prefName_list_position			
+//			String text = MainActv.textList.get(i);
+//
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "text: " + text + "/" + "position: " + i);
+//			
+//			Methods.start_speech_speak(text);
+//			
+//			while(MainActv.tts.isSpeaking());
+//			
+//		}//for (int i = position; i < MainActv.textList.size(); i++)
+//		String text = MainActv.textList.get(position);
+//
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "text: " + text + "/" + "position: " + position);
+//		
+//		Methods.start_speech_speak(text);
+//		/*----------------------------
+//		 * 1-2. Modify text
+//			----------------------------*/
+//		String text_new = Methods.find_text_trunk(text);
+//		
+//		if (text_new == null) {
+//			
+//			text_new = text;
+//			
+//		}//if (text_new == null)
+//		
+//		/*----------------------------
+//		 * 2. Speak
+//			----------------------------*/
+//        if (MainActv.tts.isSpeaking()) {
+//        	MainActv.tts.stop();
+//        }
+//
+//		MainActv.tts.speak(text_new, TextToSpeech.QUEUE_FLUSH, null);
+//		
+	}//public static void start_speech(ListView lv, View v, int position)
+
+	public static void start_speech_speak(String text) {
+		/*----------------------------
+		 * 1. Get text
+		 * 1-2. Modify text
+		 * 2. Speak
+			----------------------------*/
+		/*----------------------------
+		 * 1. Get text
+			----------------------------*/
+//		text = (String) lv.getItemAtPosition(position);
+		
+		/*----------------------------
+		 * 1-2. Modify text
+			----------------------------*/
+		String text_new = Methods.find_text_trunk(text);
+		
+		if (text_new == null) {
+			
+			text_new = text;
+			
+		}//if (text_new == null)
+		
+		/*----------------------------
+		 * 2. Speak
+			----------------------------*/
+        if (MainActv.tts.isSpeaking()) {
+        	MainActv.tts.stop();
+        }
+
+		MainActv.tts.speak(text_new, TextToSpeech.QUEUE_FLUSH, null);
+		
+	}//private static void start_speech_speak(String text)
+
 }//public class Methods
