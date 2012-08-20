@@ -34,6 +34,9 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	public static ListView main_lv;
 
 	public static SpeakTask st;
+	
+	public static int sen_length = 30;
+	
 	/*----------------------------
 	 * Preferences
 		----------------------------*/
@@ -146,7 +149,6 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	@Override
 	protected void onListItemClick(ListView lv, View v, int position, long id) {
 		/*----------------------------
-		 * 0. If tts is speaking, no operation of 2 to 3
 		 * 1. Set current position to pref
 		 * 
 		 * 2. Notify to adapter
@@ -154,15 +156,6 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		 * 3. Start speech
 		 * 
 			----------------------------*/
-		/*----------------------------
-		 * 0. If tts is speaking, no operation of 2 to 3
-			----------------------------*/
-		if (tts.isSpeaking()) {
-			
-			return;
-			
-		}//if (this.tts.isSpeaking())
-		
 		/*----------------------------
 		 * 1. Set current position to pref
 			----------------------------*/

@@ -95,7 +95,6 @@ public class ButtonOnClickListener implements OnClickListener {
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "tts stopped");
 				
-				
 			} else {//if (MainActv.tts)
 				// Log
 				Log.d("ButtonOnClickListener.java"
@@ -104,53 +103,6 @@ public class ButtonOnClickListener implements OnClickListener {
 								.getLineNumber() + "]", "tts is not speaking");
 				
 			}//if (MainActv.tts)
-			
-			
-			boolean res = false;
-			
-			// Log
-			Log.d("ButtonOnClickListener.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "MainActv.st.getStatus().name(): " + MainActv.st.getStatus().name());
-			
-			
-//			if (MainActv.st != null) {
-				
-				res = MainActv.st.cancel(true);
-				
-//			}//if (MainActv.st != null)
-//				res = MainActv.st.cancel(true);
-			
-//			if (res == true) {
-//				
-//				MainActv.st = null;
-//				
-//				// Log
-//				Log.d("ButtonOnClickListener.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", "MainActv.st => null");
-//				
-//			}//if (res == true)
-			
-			// Log
-			Log.d("ButtonOnClickListener.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Cansel result: " + res);
-			
-			
-//			if (MainActv.tts.isSpeaking()) {
-//				
-//				MainActv.tts.stop();
-//				
-//				// Log
-//				Log.d("ButtonOnClickListener.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", "tts stopped");
-//				
-//				
-//			}//if (MainActv.tts)
 		
 			break;// case main_bt_stop
 			

@@ -874,9 +874,43 @@ public class Methods {
 			----------------------------*/
 		MainActv.textList = new ArrayList<String>();
 		
+		boolean flag = false;
+		
+		String sen = "";
+		
+		int num = 1;
+		
 		for (int i = 0; i < texts.length; i++) {
 			
-			MainActv.textList.add((i + 1) + ". " + texts[i]);
+			sen += texts[i] + ",";
+			
+//			if (sen.length() < 20) {
+			if (sen.length() < MainActv.sen_length) {
+				
+				flag = false;
+				
+			} else {//if (sen.length() < 20)
+				
+				flag = true;
+				
+			}//if (sen.length() < 20)
+			
+			if (flag == false) {
+
+				continue;
+				
+			} else {//if (flag == false)
+				
+				MainActv.textList.add((num) + ". " + sen);
+				
+				num += 1;
+				sen = "";
+				flag = false;
+				
+			}//if (flag == false)
+			
+//			MainActv.textList.add((i + 1) + ". " + texts[i]);
+			
 			
 		}//for (int i = 0; i < texts.length; i++)
 		
@@ -937,24 +971,10 @@ public class Methods {
 		 * 1-2. Modify text
 		 * 2. Speak
 			----------------------------*/
-		MainActv.st = new SpeakTask(actv);
-		
-		MainActv.st.execute(new Integer[]{position});
-		
-//		SpeakTask st = new SpeakTask(actv);
-//		
-//		st.execute(new Integer[]{position});
-
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "message" + lv.getchi);
-		
-		
 		/*----------------------------
 		 * 1. Get text
 			----------------------------*/
-//		String text = (String) lv.getItemAtPosition(position);
+		String text = (String) lv.getItemAtPosition(position);
 
 //		if (position > MainActv.textList.size()) {
 //			
@@ -967,63 +987,8 @@ public class Methods {
 //			
 //		}//if (position > MainActv.textList.size())
 //
-//		for (int i = position; i < MainActv.textList.size(); i++) {
-//			SpeakTask st = new SpeakTask(actv);
-//			
-//			st.execute(new Integer[]{position});
-//		}
-		
-//        if (MainActv.tts.isSpeaking()) {
-//        	MainActv.tts.stop();
-//        }
-
-//		for (int i = position; i < MainActv.textList.size(); i++) {
-//			
-//			Methods.set_pref(actv, MainActv.prefName_list_position, i);
-//			
-//			MainActv.adp.notifyDataSetChanged();
-//			
-////			MainActv.prefName_list_position			
-//			String text = MainActv.textList.get(i);
-//
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "text: " + text + "/" + "position: " + i);
-//			
-//			Methods.start_speech_speak(text);
-//			
-//			while(MainActv.tts.isSpeaking());
-//			
-//		}//for (int i = position; i < MainActv.textList.size(); i++)
-//		String text = MainActv.textList.get(position);
-//
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "text: " + text + "/" + "position: " + position);
-//		
-//		Methods.start_speech_speak(text);
-//		/*----------------------------
-//		 * 1-2. Modify text
-//			----------------------------*/
-//		String text_new = Methods.find_text_trunk(text);
-//		
-//		if (text_new == null) {
-//			
-//			text_new = text;
-//			
-//		}//if (text_new == null)
-//		
-//		/*----------------------------
-//		 * 2. Speak
-//			----------------------------*/
-//        if (MainActv.tts.isSpeaking()) {
-//        	MainActv.tts.stop();
-//        }
-//
-//		MainActv.tts.speak(text_new, TextToSpeech.QUEUE_FLUSH, null);
-//		
+		Methods.start_speech_speak(text);
+			
 	}//public static void start_speech(ListView lv, View v, int position)
 
 	public static void start_speech_speak(String text) {
