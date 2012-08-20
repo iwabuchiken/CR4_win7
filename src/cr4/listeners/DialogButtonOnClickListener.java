@@ -1,5 +1,6 @@
 package cr4.listeners;
 
+import c4.utils.Methods;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Vibrator;
@@ -61,23 +62,30 @@ public class DialogButtonOnClickListener implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		//
-//		Methods.DialogTags tag_name = (Methods.DialogTags) v.getTag();
+		Methods.DialogTags tag = (Methods.DialogTags) v.getTag();
 
 		//
-//		switch (tag_name) {
+		switch (tag) {
 		
-//		case dlg_generic_dismiss://------------------------------------------------
-//			
-//			vib.vibrate(Methods.vibLength_click);
-//			
-//			dlg.dismiss();
-//			
-//			break;
+		case dlg_generic_dismiss://------------------------------------------------
 			
-
-//		default: // ----------------------------------------------------
-//			break;
-//		}//switch (tag_name)
+			vib.vibrate(Methods.vibLength_click);
+			
+			dlg.dismiss();
+			
+			break;// case dlg_generic_dismiss
+			
+		case dlg_register_texts_ok://------------------------------------------------
+			
+			vib.vibrate(Methods.vibLength_click);
+			
+			Methods.register_texts(actv, dlg);
+			
+			break;// case dlg_register_texts_ok
+			
+		default: // ----------------------------------------------------
+			break;
+		}//switch (tag)
 	}
 
-}
+}//public class DialogButtonOnClickListener implements OnClickListener

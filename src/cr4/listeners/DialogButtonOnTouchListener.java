@@ -1,5 +1,6 @@
 package cr4.listeners;
 
+import c4.utils.Methods;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -30,35 +31,37 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO 自動生成されたメソッド・スタブ
-//		Methods.DialogTags tag_name = (Methods.DialogTags) v.getTag();
+		Methods.DialogTags tag = (Methods.DialogTags) v.getTag();
 		
 		switch (event.getActionMasked()) {
-//		case MotionEvent.ACTION_DOWN:
-//				switch (tag_name) {
-//				
-//				case dlg_generic_dismiss:
-//					//
-//					v.setBackgroundColor(Color.GRAY);
-//					
-//					break;
-//				}//switch (tag_name)
+		case MotionEvent.ACTION_DOWN:
+				switch (tag) {
+				
+				case dlg_generic_dismiss:
+				case dlg_register_texts_ok:
+					//
+					v.setBackgroundColor(Color.GRAY);
+					
+					break;
+				}//switch (tag)
 		
-//			break;//case MotionEvent.ACTION_DOWN:
-//			
-//		case MotionEvent.ACTION_UP:
-//			switch (tag_name) {
-//
-//			case dlg_generic_dismiss:
-//					//
-//					v.setBackgroundColor(Color.WHITE);
-//					
-//					break;
-//				}//switch (tag_name)
+			break;//case MotionEvent.ACTION_DOWN:
+			
+		case MotionEvent.ACTION_UP:
+			switch (tag) {
+
+			case dlg_generic_dismiss:
+			case dlg_register_texts_ok:
+					//
+					v.setBackgroundColor(Color.WHITE);
+					
+					break;
+				}//switch (tag)
 		
-//			break;//case MotionEvent.ACTION_UP:
+			break;//case MotionEvent.ACTION_UP:
 		
 		}//switch (event.getActionMasked())
 		return false;
 	}
 
-}
+}//public class DialogButtonOnTouchListener implements OnTouchListener

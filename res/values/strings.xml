@@ -4,6 +4,15 @@
     <string name="hello">Hello World, CR4Activity!</string>
     <string name="app_name">CR4</string>
 
+    <!-- Generic items -->
+    <string name="generic_bt_ok">OK</string>
+    <string name="generic_bt_cancel">キャンセル</string>
+    <string name="generic_tv_confirm">確認</string>
+    <string name="generic_tv_menu">メニュー</string>
+    <string name="generic_tv_register">登録</string>
+    <string name="generic_tv_edit">編集</string>
+    <string name="generic_tv_delete">削除</string>
+    
     <!-- v1.xml -->
 	    <string name="v1_bt_play">Play</string>
 		<string name="v1_bt_stop">Stop</string>
@@ -26,4 +35,16 @@
 		<string name="dlg_confirm_quit_message">アプリを終了しますか？</string>
 		<string name="dlg_confirm_quit_quit">終了</string>
 		<string name="dlg_confirm_quit_cancel">いいえ</string>
+		
+	<!-- optionmenu.xml -->
+		<string name="main_menu_register_texts">テキスト登録</string>
+		<string name="main_menu_choose_text">テキスト選択</string>
+
+	<!-- dlg_register_texts.xml -->
+		<string name="dlg_register_texts_title">テキスト登録</string>
+		<string name="dlg_register_texts_tv_text">テキスト</string>
+		<string name="dlg_register_texts_tv_url">URL</string>
+		<string name="dlg_register_texts_tv_genre">ジャンル</string>
+		<string name="dlg_register_texts_tv_memo">メモ</string>
+		
 </resources>

@@ -72,55 +72,9 @@ public class Methods {
 	public static enum DialogTags {
 		// Generics
 		dlg_generic_dismiss, dlg_generic_dismiss_second_dialog, dlg_generic_dismiss_third_dialog,
-		
-		
-		// dlg_create_folder.xml
-		dlg_create_folder_ok, dlg_create_folder_cancel,
 
-		// dlg_input_empty.xml
-		dlg_input_empty_reenter, dlg_input_empty_cancel,
-		
-		// dlg_confirm_create_folder.xml
-		dlg_confirm_create_folder_ok, dlg_confirm_create_folder_cancel,
-
-		// dlg_confirm_remove_folder.xml
-		dlg_confirm_remove_folder_ok, dlg_confirm_remove_folder_cancel,
-
-		// dlg_drop_table.xml
-		dlg_drop_table_btn_cancel, dlg_drop_table,
-		
-		// dlg_confirm_drop.xml
-		dlg_confirm_drop_table_btn_ok, dlg_confirm_drop_table_btn_cancel,
-		
-		// dlg_add_memos.xml
-		dlg_add_memos_bt_add, dlg_add_memos_bt_cancel, dlg_add_memos_bt_patterns,
-		dlg_add_memos_gv,
-
-		// dlg_move_files.xml
-		dlg_move_files_move, dlg_move_files,
-		
-		// dlg_confirm_move_files.xml	=> ok, cancel, dlg tag
-		dlg_confirm_move_files_ok, dlg_confirm_move_files_cancel, dlg_confirm_move_files,
-
-		// dlg_item_menu.xml
-		dlg_item_menu_bt_cancel, dlg_item_menu,
-
-		// dlg_create_table.xml
-		dlg_create_table_bt_create,
-
-		// dlg_memo_patterns.xml
-		dlg_memo_patterns,
-		
-		// dlg_register_patterns.xml
-		dlg_register_patterns_register,
-
-		// dlg_search.xml
-		dlg_search, dlg_search_ok,
-
-		// dlg_admin_patterns.xml
-
-		// dlg_confirm_delete_patterns.xml
-		dlg_confirm_delete_patterns_ok,
+		// dlg_register_texts.xml
+		dlg_register_texts_ok,		
 		
 	}//public static enum DialogTags
 	
@@ -939,6 +893,95 @@ public class Methods {
 		
 	}//public static void set_text_list(Activity actv)
 
+	public static void set_text_list(Activity actv, String text) {
+		/*----------------------------
+		 * 1. Prepare texts
+		 * 2. Prep => List
+		 * 3. Prep => Adapter
+		 * 
+		 * 4. Set adapter to list
+			----------------------------*/
+		/*----------------------------
+		 * 1. Prepare texts
+			----------------------------*/
+		
+		String[] texts = text.split("(，|。)");
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "texts.length: " + texts.length);
+		
+		/*----------------------------
+		 * 2. Prep => List
+			----------------------------*/
+		MainActv.textList = new ArrayList<String>();
+		
+		boolean flag = false;
+		
+		String sen = "";
+		
+		int num = 1;
+		
+		for (int i = 0; i < texts.length; i++) {
+			
+			sen += texts[i] + ",";
+			
+//			if (sen.length() < 20) {
+			if (sen.length() < MainActv.sen_length) {
+				
+				flag = false;
+				
+			} else {//if (sen.length() < 20)
+				
+				flag = true;
+				
+			}//if (sen.length() < 20)
+			
+			if (flag == false) {
+
+				continue;
+				
+			} else {//if (flag == false)
+				
+				MainActv.textList.add((num) + ". " + sen);
+				
+				num += 1;
+				sen = "";
+				flag = false;
+				
+			}//if (flag == false)
+			
+//			MainActv.textList.add((i + 1) + ". " + texts[i]);
+			
+			
+		}//for (int i = 0; i < texts.length; i++)
+		
+//		for (String item : texts) {
+//			
+//			textList.add(item);
+//			
+//		}
+		
+		/*----------------------------
+		 * 3. Prep => Adapter
+			----------------------------*/
+//		MainActv.adp = new ArrayAdapter<String>(
+		MainActv.adp = new MainListAdapter(
+				actv,
+				R.layout.list_row_main,
+				MainActv.textList
+			);
+
+		/*----------------------------
+		 * 4. Set adapter to list
+			----------------------------*/
+		ListView lv = ((ListActivity) actv).getListView();
+		
+		lv.setAdapter(MainActv.adp);
+		
+	}//public static void set_text_list(Activity actv)
+
 	public static String find_text_trunk(String text) {
 		/*----------------------------
 		 * memo
@@ -1023,5 +1066,53 @@ public class Methods {
 		MainActv.tts.speak(text_new, TextToSpeech.QUEUE_FLUSH, null);
 		
 	}//private static void start_speech_speak(String text)
+
+	public static void dlg_register_texts(Activity actv) {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		Dialog dlg = Methods.dlg_template_okCancel(actv, 
+													R.layout.dlg_register_texts, R.string.main_menu_register_texts,
+													R.id.dlg_register_texts_bt_ok, R.id.dlg_register_texts_bt_cancel,
+													Methods.DialogTags.dlg_register_texts_ok, Methods.DialogTags.dlg_generic_dismiss);
+		
+		dlg.show();
+	}//public static void dlg_register_texts(MainActv mainActv)
+
+	public static void register_texts(Activity actv, Dialog dlg) {
+		/*----------------------------
+		 * 1. Get data
+		 * 1-2. Dismiss dlg
+		 * 2. Set text
+			----------------------------*/
+		EditText et_text = (EditText) dlg.findViewById(R.id.dlg_register_texts_et_text);
+		
+		String text = et_text.getText().toString();
+		
+		EditText et_url = (EditText) dlg.findViewById(R.id.dlg_register_texts_et_url);
+		
+		String url = et_url.getText().toString();
+		
+		if (text.equals("")) {
+			
+			// debug
+			Toast.makeText(actv, "Text empty", 2000).show();
+			
+			return;
+			
+		}//if (text.equals(""))
+		
+		/*----------------------------
+		 * 1-2. Dismiss dlg
+			----------------------------*/
+		dlg.dismiss();
+		
+		/*----------------------------
+		 * 2. Set text
+			----------------------------*/
+		
+		Methods.set_text_list(actv, text);
+		
+	}//public static void register_texts(Activity actv, Dialog dlg)
 
 }//public class Methods

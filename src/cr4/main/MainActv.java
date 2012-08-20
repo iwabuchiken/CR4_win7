@@ -4,6 +4,7 @@ import java.util.List;
 
 import cr4.listeners.ButtonOnClickListener;
 import cr4.listeners.ButtonOnTouchListener;
+import cr4.main.R;
 
 import c4.utils.MainListAdapter;
 import c4.utils.Methods;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,6 +43,13 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	 * Preferences
 		----------------------------*/
 	public static String prefName_list_position = "main_list_position";
+
+	/*----------------------------
+	 * DB
+		----------------------------*/
+	public static String[] cols_texts =			 {"text",		 "url", 	"created_at", "modified_at", "genre", 	"memo"};
+	
+	public static String[] col_types_texts = {"TEXT", "TEXT", "INTEGER", "INTEGER",	 "INTEGER", "TEXT"};
 	
 	/** Called when the activity is first created. */
     @Override
@@ -101,13 +110,32 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO 自動生成されたメソッド・スタブ
+
+		MenuInflater mi = getMenuInflater();
+		
+//		mi.inflate(R.menu.optionmenu, menu);
+		mi.inflate(R.menu.optionmenu, menu);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO 自動生成されたメソッド・スタブ
+		switch (item.getItemId()) {
+		
+		case R.id.main_menu_register_texts://----------------------------
+			
+			Methods.dlg_register_texts(this);
+			
+			break;// case R.id.main_menu_register_texts
+			
+		case R.id.main_menu_choose_text://----------------------------
+			
+			break;// case R.id.main_menu_register_texts
+
+		}//switch (item.getItemId())
+
 		return super.onOptionsItemSelected(item);
 	}
 
