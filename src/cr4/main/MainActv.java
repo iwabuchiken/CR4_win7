@@ -1,5 +1,6 @@
 package cr4.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cr4.listeners.ButtonOnClickListener;
@@ -27,7 +28,10 @@ import android.widget.Toast;
 
 public class MainActv extends ListActivity implements TextToSpeech.OnInitListener {
 
-	public static List<String> textList;
+	public static List<String> textList_full;	// Used in => Methods.dlg_choose_text(Activity actv), 
+																//		DialogOnItemClickListener # case dlg_choose_text_from_db_lv
+	public static List<String> textList;	// Used in => Methods.set_text_list(Activity actv)
+	
 //	public static ArrayAdapter<String> adp;
 	public static MainListAdapter adp;
 
@@ -64,7 +68,7 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		 * 2. Set content, title
 		 * 
 		 * 3. Set text list
-		 * 4. Initialize => tts, lv, st
+		 * 4. Initialize => tts, lv, st, textList_full
 		 * 
 		 * 5. Set listeners
 		 * 
@@ -90,6 +94,8 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		main_lv = this.getListView();
 		
 		st = new SpeakTask(this);
+		
+		textList_full = new ArrayList<String>();
 		
 		/*----------------------------
 		 * 5. Set listeners
@@ -136,6 +142,8 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 			
 		case R.id.main_menu_choose_text://----------------------------
 			
+			Methods.dlg_choose_text(this);
+			
 			break;// case R.id.main_menu_register_texts
 
 		}//switch (item.getItemId())
@@ -171,9 +179,34 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	protected void onDestroy() {
 		/*----------------------------
 		 * 1. Clear => Preferences
+		 * 2. Clear tts
 			----------------------------*/
 		boolean res = Methods.prefs_clear(this, MainActv.prefName_list_position);
 		
+		/*----------------------------
+		 * 2. Clear tts
+			----------------------------*/
+		if(tts != null && tts.isSpeaking()) {
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "tts != null && tts.isSpeaking()");
+			
+			tts.stop();
+			
+			tts.shutdown();
+//			tts = null;
+			
+		} else if(tts != null) {
+
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "tts != null");
+			
+			tts.shutdown();
+//			tts = null;
+		}
 		
 		super.onDestroy();
 	}//protected void onDestroy()

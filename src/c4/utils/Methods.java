@@ -1,8 +1,5 @@
 package c4.utils;
 
-
-
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
@@ -60,6 +57,7 @@ import org.apache.commons.lang.StringUtils;
 
 import cr4.listeners.DialogButtonOnClickListener;
 import cr4.listeners.DialogButtonOnTouchListener;
+import cr4.listeners.DialogOnItemClickListener;
 import cr4.main.MainActv;
 import cr4.main.R;
 
@@ -95,6 +93,10 @@ public class Methods {
 
 		// dlg_delete_patterns.xml
 		dlg_delete_patterns_gv,
+		
+		// dlg_choose_text_from_db.xml
+		dlg_choose_text_from_db_lv,
+		
 		
 	}//public static enum DialogItemTags
 	
@@ -909,10 +911,10 @@ public class Methods {
 		
 		String[] texts = text.split("(，|。)");
 		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "texts.length: " + texts.length);
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "texts.length: " + texts.length);
 		
 		/*----------------------------
 		 * 2. Prep => List
@@ -940,7 +942,8 @@ public class Methods {
 				
 			}//if (sen.length() < 20)
 			
-			if (flag == false) {
+//			if (flag == false) {
+			if (flag == false && i < texts.length - 1) {
 
 				continue;
 				
@@ -958,12 +961,12 @@ public class Methods {
 			
 			
 		}//for (int i = 0; i < texts.length; i++)
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "MainActv.textList.size(): " + MainActv.textList.size());
 		
-//		for (String item : texts) {
-//			
-//			textList.add(item);
-//			
-//		}
 		
 		/*----------------------------
 		 * 3. Prep => Adapter
@@ -1233,5 +1236,167 @@ public class Methods {
 		return dbu.insertData(wdb, MainActv.tableName_chinese_texts, MainActv.cols_texts, values);
 		
 	}//private static boolean insertData_text()
+
+	public static void dlg_choose_text(Activity actv) {
+		/*----------------------------
+		 * 1. Dialog
+		 * 2. Prep => Texts list
+		 * 
+		 * 3. Prep => Adapter
+		 * 4. Set adapter
+		 * 4-2. Set listener
+		 * 
+		 * 5. Show dialog
+			----------------------------*/
+		/*----------------------------
+		 * 1. Dialog
+			----------------------------*/
+		Dialog dlg = Methods.dlg_template_cancel(actv, 
+											R.layout.dlg_choose_text_from_db, 
+											R.string.dlg_register_texts_tv_text, 
+											R.id.dlg_choose_text_from_db_btn_cancel, 
+											Methods.DialogTags.dlg_generic_dismiss);
+		
+		/*----------------------------
+		 * 2. Prep => Texts list
+		 * 		1. Set up db
+		 * 		2. Table exists?
+		 * 		3. Query
+		 * 		4. Build a list
+			----------------------------*/
+		/*----------------------------
+		 * 2.1. Set up db
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/*----------------------------
+		 * 2.2. Table exists?
+			----------------------------*/
+		String tableName = MainActv.tableName_chinese_texts;
+		
+		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "getAllData() => Table doesn't exist: " + tableName);
+			
+			rdb.close();
+			
+			return;
+			
+		}//if (res == false)
+		
+		/*----------------------------
+		 * 2.3. Query
+			----------------------------*/
+		String sql = "SELECT * FROM " + tableName;
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+			return;
+		}
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "c.getCount() => " + c.getCount());
+
+		/*----------------------------
+		 * 2.4. Build a list
+		 * 		1. Add to the list for full texts
+		 * 		2. Add to the list for partial texts
+			----------------------------*/
+		c.moveToNext();
+		
+		List<String> textList = new ArrayList<String>();
+
+		for (int i = 0; i < c.getCount(); i++) {
+			
+			String item = c.getString(1);
+			
+			/*----------------------------
+			 * 2.4.1. Add to the list for full texts
+				----------------------------*/
+			
+			MainActv.textList_full.add(item);
+
+			/*----------------------------
+			 * 2.4.2. Add to the list for partial texts
+				----------------------------*/
+			if (item.length() > 20) {
+
+				item = item.substring(0, 20);
+				
+			}//if (item.length() > 20)
+			
+			textList.add(item);
+			
+			c.moveToNext();
+			
+		}//for (int i = 0; i < c.getCount(); i++)
+		
+		/*----------------------------
+		 * 3. Prep => Adapter
+			----------------------------*/
+		ArrayAdapter<String> adp = 
+				new ArrayAdapter<String>(
+											actv,
+											android.R.layout.simple_list_item_1,
+											textList
+				);
+		
+		/*----------------------------
+		 * 4. Set adapter
+			----------------------------*/
+		ListView lv = (ListView) dlg.findViewById(R.id.dlg_choose_text_from_db_lv_list);
+		
+		lv.setAdapter(adp);
+		
+		/*----------------------------
+		 * 4-2. Set listener
+			----------------------------*/
+		lv.setTag(Methods.DialogItemTags.dlg_choose_text_from_db_lv);
+		
+		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg, textList));
+		
+		/*----------------------------
+		 * 5. Show dialog
+			----------------------------*/
+		dlg.show();
+		
+		
+	}//public static void dlg_choose_text(Activity actv)
+
+	public static void choose_text(Activity actv, Dialog dlg, String item) {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "item: " + item);
+		
+		Methods.set_text_list(actv, item);
+
+		dlg.dismiss();
+		
+	}//public static void choose_text(Activity actv, Dialog dlg, String item)
 
 }//public class Methods

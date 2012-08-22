@@ -1,5 +1,10 @@
 package cr4.listeners;
 
+import java.util.List;
+
+import cr4.main.MainActv;
+
+import c4.utils.Methods;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,6 +22,9 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 	Activity actv;
 	Dialog dlg;
 	Dialog dlg2;
+	
+	List<String> textList;	// Used in => Methods.dlg_choose_text(Activity actv)
+	
 	//
 	Vibrator vib;
 	
@@ -32,6 +40,15 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		
 	}//public DialogOnItemClickListener(Activity actv, Dialog dlg)
 
+	public DialogOnItemClickListener(Activity actv, Dialog dlg, List<String> textList) {
+		this.actv = actv;
+		this.dlg = dlg;
+		
+		this.textList = textList;
+		
+		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		/*----------------------------
@@ -41,17 +58,27 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		 * 3. Switching
 			----------------------------*/
 		
-//		Methods.DialogOnItemClickTags tag = (Methods.DialogOnItemClickTags) parent.getTag();
+		Methods.DialogItemTags tag = (Methods.DialogItemTags) parent.getTag();
 //		
-//		vib.vibrate(Methods.vibLength_click);
+		vib.vibrate(Methods.vibLength_click);
 		
 		/*----------------------------
 		 * 3. Switching
 			----------------------------*/
-//		switch (tag) {
+		switch (tag) {
 		
+		case dlg_choose_text_from_db_lv://---------------------------------------
 			
-//		}//switch (tag)
+//			String item = (String) parent.getItemAtPosition(position);
+//			String item = textList.get(position);
+			
+			String item = MainActv.textList_full.get(position);
+			
+			Methods.choose_text(actv, dlg, item);
+			
+			break;// case dlg_choose_text_from_db_lv
+			
+		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
 }
