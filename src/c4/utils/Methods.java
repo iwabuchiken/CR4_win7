@@ -1088,6 +1088,9 @@ public class Methods {
 		/*----------------------------
 		 * 1. Get data
 		 * 1-2. Dismiss dlg
+		 * 
+		 * 1-3. Remove return chars from the text
+		 * 
 		 * 2. Save text to db
 		 * Set text
 			----------------------------*/
@@ -1113,6 +1116,20 @@ public class Methods {
 			----------------------------*/
 		dlg.dismiss();
 		
+		/*----------------------------
+		 * 1-3. Remove return chars from the text
+			----------------------------*/
+//		String reg1 = "\\n|\\s";
+//		
+//		Pattern p = Pattern.compile(reg1);
+//		
+//		Matcher m = p.matcher(text);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "m.matches(): " + m.matches());
+//		
 		
 		/*----------------------------
 		 * 2. Save text to db
@@ -1329,7 +1346,8 @@ public class Methods {
 
 		for (int i = 0; i < c.getCount(); i++) {
 			
-			String item = c.getString(1);
+//			String item = c.getString(1);
+			String item = Methods.modify_text(c.getString(1));
 			
 			/*----------------------------
 			 * 2.4.1. Add to the list for full texts
@@ -1393,10 +1411,51 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "item: " + item);
 		
+//		String reg1 = "\\n|\\s";
+//		String reg1 = "\\R";		//=> java.util.regex.PatternSyntaxException: Syntax error U_REGEX_BAD_ESCAPE_SEQUENCE near index 2:
+//		String reg1 = "\\r";
+//		String reg1 = "\\r\\n";
+//		String reg1 = "创业";
+//		String reg2 = "[\\s*]";
+//		
+//		Pattern p = Pattern.compile(reg1);
+//		
+//		Matcher m = p.matcher(item);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "m.matches(): " + m.matches());
+		
+//		item = item.replaceAll("[\\r\\n]", "");
+//		item = item.replaceAll(reg2, " ");
+		
+		item = Methods.modify_text(item);
+		
 		Methods.set_text_list(actv, item);
 
 		dlg.dismiss();
 		
 	}//public static void choose_text(Activity actv, Dialog dlg, String item)
 
+	public static String modify_text(String text) {
+		
+		String reg1 = "[\\r\\n]";
+		String reg2 = "[\\s*]";
+		
+		String item = text.replaceAll(reg1, "");
+		
+		return item.replaceAll(reg2, " ");
+		
+	}//	public static String modify_text(String text)
+	
 }//public class Methods
+
+//近年来，鄂尔多斯市不断加大对扶持创业工作力度，全民创业的激情持续高涨。
+//
+//创业培训形式多样。首先，鄂尔多斯市着力加大创业培训工作力度，积极整合各级创业培训机构，
+//
+//重点对象重点扶持。一是突出扶持高校毕业生
+
+//08-22 12:23:49.585: D/Methods.java[1410](8098): item: 导报首席记者 刘翔 章丘报道
+//08-22 12:23:49.585: D/Methods.java[1410](8098): 　　由创业俱乐部到创业产业园，再到未来的大学城服务综合体，成立不足两年的省内惟一一家民营创业园山东青年（大学生）创业孵化园（下称“创业园”），定位已经“两易其稿”。
