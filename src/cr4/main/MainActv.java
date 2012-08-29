@@ -7,11 +7,13 @@ import cr4.listeners.ButtonOnClickListener;
 import cr4.listeners.ButtonOnTouchListener;
 import cr4.main.R;
 
+import c4.utils.DBUtils;
 import c4.utils.MainListAdapter;
 import c4.utils.Methods;
 import c4.utils.SpeakTask;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -48,6 +50,9 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		----------------------------*/
 	public static String prefName_list_position = "main_list_position";
 
+	public static String prefName_main = "cm2_main";
+	public static String pref_main_key_chosen_text = "chosen_text";
+	
 	/*----------------------------
 	 * DB
 		----------------------------*/
@@ -58,6 +63,14 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 	public static String[] cols_texts =			 {"text",		 "url", 	"created_at", "modified_at", "genre", 	"memo"};
 	
 	public static String[] col_types_texts = {"TEXT", "TEXT", "INTEGER", "INTEGER",	 "INTEGER", "TEXT"};
+
+	// read_history
+	public static String tableName_read_history = "read_history";
+	
+	public static String[] cols_history =			 {"text_id",		 "text", 	"position", 	"item", 		"created_at"};
+	
+	public static String[] col_types_history = {"INTEGER", "TEXT", "INTEGER", "TEXT",	"INTEGER"};
+	
 	
 	/** Called when the activity is first created. */
     @Override
@@ -72,6 +85,7 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		 * 
 		 * 5. Set listeners
 		 * 
+		 * 6. Setup db
 		----------------------------*/
 		super.onCreate(savedInstanceState);
 
@@ -102,8 +116,74 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 			----------------------------*/
 		set_listeners();
 		
+		/*----------------------------
+		 * 6. Setup db
+			----------------------------*/
+		// read_history
+		setup_db();
 		
 	}//public void onCreate(Bundle savedInstanceState)
+
+	private void setup_db() {
+		/*----------------------------
+		 * 1. Set up db
+		 * 
+		 * 9. Close db
+			----------------------------*/
+		/*----------------------------
+		 * 1. Set up db
+			----------------------------*/
+		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		boolean res = dbu.tableExists(wdb, MainActv.tableName_read_history);
+		
+		if (res != false) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + MainActv.tableName_read_history);
+			
+		} else {//if (res != false)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + MainActv.tableName_read_history);
+			
+			// Create one
+			res = dbu.createTable(
+											wdb, 
+											MainActv.tableName_read_history, 
+											MainActv.cols_history,
+											MainActv.col_types_history);
+			
+			if (res == true) {
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: " + MainActv.tableName_read_history);
+				
+			} else {//if (res == true)
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Create table failed: " + MainActv.tableName_read_history);
+				
+			}//if (res == true)
+			
+		}//if (res != false)
+
+		/*----------------------------
+		 * 9. Close db
+			----------------------------*/
+		wdb.close();
+		
+	}//private void setup_db()
 
 	private void set_listeners() {
 		/*----------------------------
@@ -211,12 +291,29 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		super.onDestroy();
 	}//protected void onDestroy()
 
+	/****************************************
+	 * onListItemClick(ListView lv, View v, int position, long id)
+	 * 
+	 * <Caller> 1. 
+	 * 
+	 * <Desc>
+	 *  1. Click => Set pref value; The adapter will refer to the value,
+	 *  					then highlight the item clicked (20120828_195017)
+	 *  
+	 *  <Params> 1.
+	 * 
+	 * <Return> 1.
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
 	@Override
 	protected void onListItemClick(ListView lv, View v, int position, long id) {
 		/*----------------------------
 		 * 1. Set current position to pref
 		 * 
 		 * 2. Notify to adapter
+		 * 
+		 * 2-2. Write log
 		 * 
 		 * 3. Start speech
 		 * 
@@ -234,7 +331,12 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 			MainActv.adp.notifyDataSetChanged();
 			
 		}//if (MainActv.adp != null)
-			
+		
+		/*----------------------------
+		 * 2-2. Write log
+			----------------------------*/
+		Methods.write_log(this, lv, position);
+		
 		/*----------------------------
 		 * 3. Start speech
 			----------------------------*/

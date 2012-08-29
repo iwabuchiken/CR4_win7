@@ -603,6 +603,44 @@ public class Methods {
 		return false;
 	}//public static boolean set_pref(String pref_name, String value)
 
+	public static boolean set_pref(Activity actv, String pref_name, String pref_key, String value) {
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
+
+		/*----------------------------
+		 * 2. Get editor
+			----------------------------*/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/*----------------------------
+		 * 3. Set value
+			----------------------------*/
+		editor.putString(pref_key, value);
+		
+		try {
+			editor.commit();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Pref saved: " + "key: " + pref_key + " / " + value);
+			
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
+//		return false;
+	}//public static boolean set_pref(Activity actv, String pref_name, String pref_key, String value)
+
 	public static String get_pref(Activity actv, String pref_name, String defValue) {
 //		SharedPreferences prefs = 
 //				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
@@ -613,6 +651,19 @@ public class Methods {
 //		return prefs.getString(pref_name, defValue);
 		
 		return null;
+
+	}//public static boolean set_pref(String pref_name, String value)
+
+	public static String get_pref(Activity actv, String pref_name, String pref_key, String defaultValue) {
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
+
+		/*----------------------------
+		 * Return
+			----------------------------*/
+		return prefs.getString(pref_key, defaultValue);
+		
+//		return null;
 
 	}//public static boolean set_pref(String pref_name, String value)
 
@@ -801,6 +852,8 @@ public class Methods {
 		 * 3. Prep => Adapter
 		 * 
 		 * 4. Set adapter to list
+		 * 
+		 * 5. Set pref
 			----------------------------*/
 		/*----------------------------
 		 * 1. Prepare texts
@@ -894,6 +947,15 @@ public class Methods {
 		ListView lv = ((ListActivity) actv).getListView();
 		
 		lv.setAdapter(MainActv.adp);
+		
+		/*----------------------------
+		 * 5. Set pref
+			----------------------------*/
+		Methods.set_pref(
+						actv, 
+						MainActv.prefName_main, 
+						MainActv.pref_main_key_chosen_text,
+						"0: " + text.substring(0, 20));
 		
 	}//public static void set_text_list(Activity actv)
 
@@ -1448,6 +1510,108 @@ public class Methods {
 		return item.replaceAll(reg2, " ");
 		
 	}//	public static String modify_text(String text)
+
+	@SuppressWarnings("unused")
+	public static void write_log(Activity actv, ListView lv, int position) {
+		/*----------------------------
+		 * 1. Prep => Data
+		 * 
+		 * 2. Set up db
+		 * 
+		 * 9. Close db
+			----------------------------*/
+		/*----------------------------
+		 * 1. Prep => Data
+			----------------------------*/
+		// Text id
+		String pref_text = Methods.get_pref(actv, MainActv.prefName_main, MainActv.pref_main_key_chosen_text, null);
+		
+		long text_id = -1;
+		
+		String text = null;
+		
+		
+		
+		// debug
+		if (pref_text != null) {
+		
+			String[] arys = pref_text.split(":");
+			
+//			text_id = Integer.valueOf(arys[0]);
+			text_id = Long.valueOf(arys[0]);
+			
+			text = arys[1];
+			
+//			Toast.makeText(actv, pref_text, 2000).show();
+//			Toast.makeText(actv, arys[0], 2000).show();
+			
+		} else {//if (pref_text != null)
+			
+			Toast.makeText(actv, "pref_text => null", 2000).show();
+			
+			return;
+			
+		}//if (pref_text != null)
+		
+		// Position, item
+		long l_position = (long) position;
+		
+		String item = (String) lv.getItemAtPosition(position);
+		item = item.substring(0, 20);
+		
+		// created_at
+		long created_at = Methods.getMillSeconds_now();
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "item: " + item + "(" + l_position + ")");
+
+		// Data
+		Object[] data = {text_id, text, l_position, item, created_at};
+		
+		/*----------------------------
+		 * 2. Set up db
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		boolean res = dbu.insertData_read_history(
+															wdb, 
+															MainActv.tableName_read_history, 
+															MainActv.cols_history, 
+															data);
+		
+		if (res == true) {
+
+			// debug
+			Toast.makeText(actv, "Data stored: position => " + l_position, 2000).show();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data stored: position => " + l_position);
+			
+		} else {//if (res == true)
+			
+			// debug
+			Toast.makeText(actv, "Couldn't store data: position => " + l_position, 2000).show();
+
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Couldn't store data: position => " + l_position);
+
+		}//if (res == true)
+		
+
+		/*----------------------------
+		 * 9. Close db
+			----------------------------*/
+		wdb.close();
+		
+	}//public static void write_log(Activity actv, ListView lv, int position)
 	
 }//public class Methods
 

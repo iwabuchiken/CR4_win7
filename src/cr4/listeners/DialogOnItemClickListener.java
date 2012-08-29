@@ -74,6 +74,13 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			
 			String item = MainActv.textList_full.get(position);
 			
+			Methods.set_pref(
+					actv, 
+					MainActv.prefName_main, 
+					MainActv.pref_main_key_chosen_text,
+//					(position + 1) + ": " +item.substring(0, 20));
+					(position + 1) + ":" +item.substring(0, 20));
+			
 			Methods.choose_text(actv, dlg, item);
 			
 			break;// case dlg_choose_text_from_db_lv
