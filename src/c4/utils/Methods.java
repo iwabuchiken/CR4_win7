@@ -845,6 +845,14 @@ public class Methods {
 		
 	}//public static String get_TimeLabel(long millSec)
 
+	public static String convert_millSec_to_DateLabel(long millSec) {
+		
+		 SimpleDateFormat sdf1 = new SimpleDateFormat("yy/MM/dd");
+		 
+		return sdf1.format(new Date(millSec));
+		
+	}//public static String get_TimeLabel(long millSec)
+
 
 	public static void set_text_list(Activity actv) {
 		/*----------------------------

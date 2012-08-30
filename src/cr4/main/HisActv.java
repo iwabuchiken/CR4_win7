@@ -7,6 +7,8 @@ import java.util.List;
 import cr4.items.HI;
 
 import c4.utils.DBUtils;
+import c4.utils.HIListAdapter;
+import c4.utils.Methods;
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 public class HisActv extends ListActivity {
 
@@ -41,6 +44,9 @@ public class HisActv extends ListActivity {
 		 * 1. Set up db
 		 * 2. Query
 		 * 3. Build a list
+		 * 
+		 * 4. Create an adapter
+		 * 5. Set adapter
 		 * 
 		 * 9. Close db
 			----------------------------*/
@@ -122,6 +128,40 @@ public class HisActv extends ListActivity {
 
 		}//for (int i = 0; i < HIList.size(); i++)
 		
+		List<String> textList = new ArrayList<String>();
+		
+		for (int i = 0; i < HIList.size(); i++) {
+			
+			textList.add("(" + (HIList.get(i).getText_id() + 1) + ") " 
+							+ HIList.get(i).getText()
+							+ "(" + (HIList.get(i).getPosition() + 1) + " : "
+							+ Methods.convert_millSec_to_DateLabel(HIList.get(i).getCreated_at()) + ")");
+			
+		}//for (int i = 0; i < HIList.size(); i++)
+		
+		/*----------------------------
+		 * 4. Create an adapter
+			----------------------------*/
+		ArrayAdapter<String> adp = new ArrayAdapter<String>(
+								this,
+								android.R.layout.simple_list_item_1,
+								textList
+				);
+		
+////		ArrayAdapter<HI> adp = new ArrayAdapter<HI>(
+//		HIListAdapter adp = new HIListAdapter(
+//				this,
+////				android.R.layout.simple_list_item_1,
+////				R.layout.list_row_history,
+////				R.layout.list_row_history,
+//				R.layout.history,
+//				HIList
+//				);
+
+		/*----------------------------
+		 * 5. Set adapter
+			----------------------------*/
+		setListAdapter(adp);
 		
 		/*----------------------------
 		 * 9. Close db

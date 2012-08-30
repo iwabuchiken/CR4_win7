@@ -43,11 +43,17 @@ public final class R {
         public static final int dlg_register_texts_tv_text=0x7f080003;
         public static final int dlg_register_texts_tv_url=0x7f080005;
         public static final int history_bt_stop=0x7f08000e;
-        public static final int list_row_main_tv=0x7f08000f;
-        public static final int main_bt_stop=0x7f080010;
-        public static final int main_menu_choose_text=0x7f080012;
-        public static final int main_menu_history=0x7f080013;
-        public static final int main_menu_register_texts=0x7f080011;
+        public static final int list_row_history_tv=0x7f08000f;
+        public static final int list_row_history_tv_created_at=0x7f080012;
+        public static final int list_row_history_tv_item=0x7f080014;
+        public static final int list_row_history_tv_position=0x7f080013;
+        public static final int list_row_history_tv_text=0x7f080011;
+        public static final int list_row_history_tv_text_id=0x7f080010;
+        public static final int list_row_main_tv=0x7f080015;
+        public static final int main_bt_stop=0x7f080016;
+        public static final int main_menu_choose_text=0x7f080018;
+        public static final int main_menu_history=0x7f080019;
+        public static final int main_menu_register_texts=0x7f080017;
         public static final int scrollView1=0x7f080002;
         public static final int tableRow3=0x7f08000b;
     }
@@ -55,9 +61,10 @@ public final class R {
         public static final int dlg_choose_text_from_db=0x7f030000;
         public static final int dlg_register_texts=0x7f030001;
         public static final int history=0x7f030002;
-        public static final int list_row_main=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int main_original=0x7f030005;
+        public static final int list_row_history=0x7f030003;
+        public static final int list_row_main=0x7f030004;
+        public static final int main=0x7f030005;
+        public static final int main_original=0x7f030006;
     }
     public static final class menu {
         public static final int optionmenu=0x7f070000;
