@@ -12,6 +12,7 @@
     <string name="generic_tv_register">登録</string>
     <string name="generic_tv_edit">編集</string>
     <string name="generic_tv_delete">削除</string>
+    <string name="generic_tv_back">戻る</string>
     
     <!-- v1.xml -->
 	    <string name="v1_bt_play">Play</string>
@@ -39,6 +40,7 @@
 	<!-- optionmenu.xml -->
 		<string name="main_menu_register_texts">テキスト登録</string>
 		<string name="main_menu_choose_text">テキスト選択</string>
+		<string name="main_menu_history">履歴</string>
 
 	<!-- dlg_register_texts.xml -->
 		<string name="dlg_register_texts_title">テキスト登録</string>

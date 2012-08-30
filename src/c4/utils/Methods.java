@@ -58,6 +58,7 @@ import org.apache.commons.lang.StringUtils;
 import cr4.listeners.DialogButtonOnClickListener;
 import cr4.listeners.DialogButtonOnTouchListener;
 import cr4.listeners.DialogOnItemClickListener;
+import cr4.main.HisActv;
 import cr4.main.MainActv;
 import cr4.main.R;
 
@@ -1612,6 +1613,20 @@ public class Methods {
 		wdb.close();
 		
 	}//public static void write_log(Activity actv, ListView lv, int position)
+
+	public static void start_HisActv(Activity actv) {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		Intent i = new Intent();
+		
+		i.setClass(actv, HisActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//public static void start_HisActv(Activity actv)
 	
 }//public class Methods
 

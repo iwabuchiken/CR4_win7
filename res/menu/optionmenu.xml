@@ -13,6 +13,13 @@
 		android:icon="@android:drawable/ic_menu_set_as">
         
     </item>
+
+    <item 
+        android:id="@+id/main_menu_history"
+		android:title="@string/main_menu_history"
+		android:icon="@android:drawable/ic_menu_agenda">
+        
+    </item>
     
 
 </menu>

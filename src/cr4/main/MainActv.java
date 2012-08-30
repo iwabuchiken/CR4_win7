@@ -226,6 +226,12 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 			
 			break;// case R.id.main_menu_register_texts
 
+		case R.id.main_menu_history://----------------------------
+			
+			Methods.start_HisActv(this);
+			
+			break;// case R.id.main_menu_register_texts
+
 		}//switch (item.getItemId())
 
 		return super.onOptionsItemSelected(item);
