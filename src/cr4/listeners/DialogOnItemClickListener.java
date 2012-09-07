@@ -49,7 +49,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
-	@Override
+//	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		/*----------------------------
 		 * Steps

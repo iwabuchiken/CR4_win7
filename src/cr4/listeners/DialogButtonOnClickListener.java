@@ -59,7 +59,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		
 	}//public DialogButtonOnClickListener(Activity actv, Dialog dlg, long file_id, String tableName)
 
-	@Override
+//	@Override
 	public void onClick(View v) {
 		//
 		Methods.DialogTags tag = (Methods.DialogTags) v.getTag();

@@ -16,6 +16,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -1635,6 +1637,58 @@ public class Methods {
 		actv.startActivity(i);
 		
 	}//public static void start_HisActv(Activity actv)
+	
+	/****************************************
+	 * 1. Experiment done for this method in:
+	 * 		=> C:\WORKS\WORKSPACES_ANDROID\Learn_java\src\test_1\A_array_numOfElements.java
+	 *
+	 ****************************************/
+	public static HashMap<String, Integer> convert_to_histogram(String[] data) {
+		/*----------------------------
+		 * 1. Get key set
+		 * 2. Get hash map
+		 * 3. Return
+			----------------------------*/
+//		/*----------------------------
+//		 * 1. Get key set
+//			----------------------------*/
+//		HashSet<String> s = new HashSet<String>();
+//		
+//		for (String item : data) {
+//			
+//			s.add(item);
+//			
+//		}
+		
+		/*----------------------------
+		 * 2. Get hash map
+			----------------------------*/
+		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+		
+		for (String item : data) {
+			
+			if (hm.get(item) == null) {
+				
+				hm.put(item, Integer.valueOf(1));
+				
+			} else {//if (hm.get(ary) == null)
+				
+				int val = hm.get(item);
+				
+				val += 1;
+				
+				hm.put(item, val);
+				
+			}//if (hm.get(ary) == null)
+			
+		}//for (String item : data)
+
+		/*----------------------------
+		 * 3. Return
+			----------------------------*/
+		return hm;
+		
+	}//public static HashMap<String, Integer> convert_to_histogram(String[] data)
 	
 }//public class Methods
 
