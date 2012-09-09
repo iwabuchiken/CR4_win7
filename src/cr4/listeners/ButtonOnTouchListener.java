@@ -42,6 +42,7 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			case history_bt_top:
 			case history_bt_bottom:
 			case history_bt_prev:
+			case history_bt_next:
 				
 				v.setBackgroundColor(Color.GRAY);
 //				break;
@@ -56,6 +57,7 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			case history_bt_top:
 			case history_bt_bottom:
 			case history_bt_prev:
+			case history_bt_next:
 				
 				v.setBackgroundColor(Color.WHITE);
 				

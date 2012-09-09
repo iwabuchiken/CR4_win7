@@ -79,10 +79,10 @@ public class HIListAdapter2 extends ArrayAdapter<String> {
 			----------------------------*/
 		String text = (String) getItem(position);
 		
-		// Log
-		Log.d("HIListAdapter.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "getClass: " + text.getClass().getName());
+//		// Log
+//		Log.d("HIListAdapter.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "getClass: " + text.getClass().getName());
 		
 		
     	/*----------------------------
@@ -105,9 +105,14 @@ public class HIListAdapter2 extends ArrayAdapter<String> {
 						position);
 		
 		// Log
-		Log.d("Methods.java" + "["
+		Log.d("HIListAdapter.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "res: " + res);
+				+ "]", "set_pref: " + position);
+		
+//		// Log
+//		Log.d("HIListAdapter.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "res: " + res);
 		
 		/*----------------------------
 		 * 9. Return v

@@ -50,6 +50,34 @@ public class HisActv extends ListActivity {
 		
 		set_listeners();
 
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "this.lv_history.getChildAt(4).getId(): " + lv_history.getChildAt(4).getId());
+
+//		if (lv_history == null) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "lv_history == null");
+//			
+//		} else if (lv_history.getChildAt(4) == null) {
+//		
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "lv_history == null");
+//
+//		} else {
+//
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "???");
+//
+//		}
+		
 	}//public void onCreate(Bundle savedInstanceState)
 
 	private void set_listeners() {
@@ -88,6 +116,16 @@ public class HisActv extends ListActivity {
 		
 		bt_prev.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_prev.setOnClickListener(new ButtonOnClickListener(this));
+		
+		/*********************************
+		 * 4. Button: Next
+		 *********************************/
+		Button bt_next = (Button) findViewById(R.id.history_bt_next);
+		
+		bt_next.setTag(Methods.ButtonTags.history_bt_next);
+		
+		bt_next.setOnTouchListener(new ButtonOnTouchListener(this));
+		bt_next.setOnClickListener(new ButtonOnClickListener(this));
 		
 		
 	}//private void set_listeners()
@@ -175,10 +213,10 @@ public class HisActv extends ListActivity {
 		// Log
 		for (int i = 0; i < HIList.size(); i++) {
 
-			Log.d("HisActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Text_id(): " + HIList.get(i).getText_id() + " / " + 
-					"position: " + HIList.get(i).getPosition());
+//			Log.d("HisActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Text_id(): " + HIList.get(i).getText_id() + " / " + 
+//					"position: " + HIList.get(i).getPosition());
 //					+ "]", "Text_id(): " + HIList.get(i).getText_id());
 //					+ "]", "getText(): " + HIList.get(i).getText());
 
@@ -230,6 +268,30 @@ public class HisActv extends ListActivity {
 		 * 6. Initialize list view
 		 *********************************/
 		lv_history = this.getListView();
+		
+//		if (lv_history == null) {
+//			
+//			// Log
+//			Log.d("HisActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "lv_history == null");
+//			
+//		} else if (lv_history.getChildAt(4) == null) {
+//		
+//			// Log
+//			Log.d("HisActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "lv_history == null");
+//
+//		} else {
+//
+//			// Log
+//			Log.d("HisActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "???");
+//
+//		}
+
 		
 		/*----------------------------
 		 * 9. Close db
