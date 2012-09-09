@@ -42,18 +42,23 @@ public final class R {
         public static final int dlg_register_texts_tv_memo=0x7f080009;
         public static final int dlg_register_texts_tv_text=0x7f080003;
         public static final int dlg_register_texts_tv_url=0x7f080005;
-        public static final int history_bt_stop=0x7f08000e;
-        public static final int list_row_history_tv=0x7f08000f;
-        public static final int list_row_history_tv_created_at=0x7f080012;
-        public static final int list_row_history_tv_item=0x7f080014;
-        public static final int list_row_history_tv_position=0x7f080013;
-        public static final int list_row_history_tv_text=0x7f080011;
-        public static final int list_row_history_tv_text_id=0x7f080010;
-        public static final int list_row_main_tv=0x7f080015;
-        public static final int main_bt_stop=0x7f080016;
-        public static final int main_menu_choose_text=0x7f080018;
-        public static final int main_menu_history=0x7f080019;
-        public static final int main_menu_register_texts=0x7f080017;
+        public static final int history_bt_bottom=0x7f080012;
+        public static final int history_bt_next=0x7f080011;
+        public static final int history_bt_prev=0x7f08000f;
+        public static final int history_bt_stop=0x7f080010;
+        public static final int history_bt_top=0x7f08000e;
+        public static final int list_row_history_2_tv=0x7f080019;
+        public static final int list_row_history_tv=0x7f080013;
+        public static final int list_row_history_tv_created_at=0x7f080016;
+        public static final int list_row_history_tv_item=0x7f080018;
+        public static final int list_row_history_tv_position=0x7f080017;
+        public static final int list_row_history_tv_text=0x7f080015;
+        public static final int list_row_history_tv_text_id=0x7f080014;
+        public static final int list_row_main_tv=0x7f08001a;
+        public static final int main_bt_stop=0x7f08001b;
+        public static final int main_menu_choose_text=0x7f08001d;
+        public static final int main_menu_history=0x7f08001e;
+        public static final int main_menu_register_texts=0x7f08001c;
         public static final int scrollView1=0x7f080002;
         public static final int tableRow3=0x7f08000b;
     }
@@ -62,9 +67,10 @@ public final class R {
         public static final int dlg_register_texts=0x7f030001;
         public static final int history=0x7f030002;
         public static final int list_row_history=0x7f030003;
-        public static final int list_row_main=0x7f030004;
-        public static final int main=0x7f030005;
-        public static final int main_original=0x7f030006;
+        public static final int list_row_history_2=0x7f030004;
+        public static final int list_row_main=0x7f030005;
+        public static final int main=0x7f030006;
+        public static final int main_original=0x7f030007;
     }
     public static final class menu {
         public static final int optionmenu=0x7f070000;
@@ -97,6 +103,13 @@ public final class R {
         public static final int generic_tv_menu=0x7f050005;
         public static final int generic_tv_register=0x7f050006;
         public static final int hello=0x7f050000;
+        public static final int history_bt_bottom=0x7f050020;
+        public static final int history_bt_next=0x7f050023;
+        public static final int history_bt_prev=0x7f050022;
+        public static final int history_bt_ret=0x7f050021;
+        /**  history.xml 
+         */
+        public static final int history_bt_top=0x7f05001f;
         public static final int main_menu_choose_text=0x7f050018;
         public static final int main_menu_history=0x7f050019;
         /**  optionmenu.xml 

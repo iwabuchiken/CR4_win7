@@ -60,6 +60,7 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 
 	public static String prefName_main = "cm2_main";
 	public static String pref_main_key_chosen_text = "chosen_text";
+	public static String pref_main_key_thumlist_position = "thumlist_position";
 	
 	/*----------------------------
 	 * DB
@@ -144,8 +145,75 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 
         //debug
 //        backup_db();
+		
+//		restore_db();
 
 	}//public void onCreate(Bundle savedInstanceState)
+
+	private void restore_db() {
+		/*********************************
+		 * 1. Setup db
+		 * 2. Setup: File paths
+		 * 3. Setup: File objects
+		 * 4. Copy file
+		 * 
+		 *********************************/
+    	// Setup db
+		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		wdb.close();
+
+		/*********************************
+		 * 2. Setup: File paths
+		 *********************************/
+    	String src = 
+//    			"/mnt/sdcard-ext/ShoppingList_backup/shoppinglist_backup_20120906_201402.bk";
+    			"/mnt/sdcard-ext/CR4_backup/cr4_backup_20120907_184555.bk";
+    	
+    	String dst =
+//    			"/data/data/test.main/databases/shoppinglist.db";
+    			"/data/data/cr4.main/databases/cr4.db";
+
+    	/*********************************
+		 * 3. Setup: File objects
+		 *********************************/
+		File f_src = new File(src);
+		File f_dst = new File(dst);
+
+		/*********************************
+		 * 4. Copy file
+		 *********************************/
+		try {
+			FileChannel iChannel = new FileInputStream(src).getChannel();
+			FileChannel oChannel = new FileOutputStream(dst).getChannel();
+			iChannel.transferTo(0, iChannel.size(), oChannel);
+			iChannel.close();
+			oChannel.close();
+			
+			// Log
+			Log.d("ThumbnailActivity.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "File copied");
+			
+			// debug
+			Toast.makeText(this, "DB restoration => Done", 3000).show();
+
+		} catch (FileNotFoundException e) {
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+		} catch (IOException e) {
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+		}//try
+		
+	}//private void restore_db()
 
 	private void backup_db() {
 		String dirName_ExternalStorage = "/mnt/sdcard-ext";

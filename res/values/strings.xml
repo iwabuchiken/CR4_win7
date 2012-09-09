@@ -48,5 +48,13 @@
 		<string name="dlg_register_texts_tv_url">URL</string>
 		<string name="dlg_register_texts_tv_genre">ジャンル</string>
 		<string name="dlg_register_texts_tv_memo">メモ</string>
+	
+	<!-- history.xml -->
+		<string name="history_bt_top">T</string>
+		<string name="history_bt_bottom">B</string>
+		<string name="history_bt_ret">Ret</string>
+		<string name="history_bt_prev">P</string>
+		<string name="history_bt_next">N</string>
+		
 		
 </resources>

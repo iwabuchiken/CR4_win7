@@ -2,6 +2,7 @@ package cr4.listeners;
 
 import java.io.File;
 
+import cr4.main.HisActv;
 import cr4.main.MainActv;
 
 import c4.utils.Methods;
@@ -104,6 +105,52 @@ public class ButtonOnClickListener implements OnClickListener {
 			}//if (MainActv.tts)
 		
 			break;// case main_bt_stop
+
+		case history_bt_top://---------------------------------------------------------
+			
+			HisActv.lv_history.setSelection(0);
+			
+			break;// case history_bt_top
+			
+		case history_bt_bottom://---------------------------------------------------------
+			
+			HisActv.lv_history.setSelection(
+					HisActv.textList.size() - 1);
+			
+			break;// case history_bt_bottom
+
+		case history_bt_prev://---------------------------------------------------------
+			
+			int position = Methods.get_pref(actv, MainActv.pref_main_key_thumlist_position, -1);
+			
+			if (position == -1) {
+
+				// debug
+				Toast.makeText(actv, "position => -1", 2000).show();
+				
+				return;
+				
+			} else {//if (position == -1)
+				
+				int num = position - HisActv.lv_history.getChildCount();
+				
+				if (num < 0) {
+					
+					HisActv.lv_history.setSelection(0);
+					
+				} else {//if (condition)
+					
+					HisActv.lv_history.setSelection(num);
+					
+				}//if (condition)
+				
+				
+//				HisActv.lv_history.setSelection(position - HisActv.lv_history.getChildCount());
+				
+			}//if (position == -1)
+			
+			
+			break;// case history_bt_prev
 			
 		}//switch (tag)
 		

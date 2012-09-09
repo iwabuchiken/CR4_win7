@@ -108,6 +108,12 @@ public class Methods {
 		// MainActivity.java
 		main_bt_stop,
 		
+		// history.xml
+		history_bt_top, history_bt_bottom, 
+		history_bt_stop, 
+		history_bt_prev, history_bt_next,
+		
+		
 	}//public static enum ButtonTags
 	
 	public static enum ItemLongClickTags {
@@ -575,35 +581,34 @@ public class Methods {
 
 
 	public static boolean set_pref(Activity actv, String pref_name, String value) {
-//		SharedPreferences prefs = 
-//				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
-//
-//		/*----------------------------
-//		 * 2. Get editor
-//			----------------------------*/
-//		SharedPreferences.Editor editor = prefs.edit();
-//
-//		/*----------------------------
-//		 * 3. Set value
-//			----------------------------*/
-//		editor.putString(pref_name, value);
-//		
-//		try {
-//			editor.commit();
-//			
-//			return true;
-//			
-//		} catch (Exception e) {
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Excption: " + e.toString());
-//			
-//			return false;
-//		}
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		return false;
+		/*----------------------------
+		 * 2. Get editor
+			----------------------------*/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/*----------------------------
+		 * 3. Set value
+			----------------------------*/
+		editor.putString(pref_name, value);
+		
+		try {
+			editor.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
 	}//public static boolean set_pref(String pref_name, String value)
 
 	public static boolean set_pref(Activity actv, String pref_name, String pref_key, String value) {

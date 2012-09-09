@@ -39,6 +39,10 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			switch (tag) {
 			
 			case main_bt_stop:
+			case history_bt_top:
+			case history_bt_bottom:
+			case history_bt_prev:
+				
 				v.setBackgroundColor(Color.GRAY);
 //				break;
 			}//switch (tag)
@@ -49,6 +53,9 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			switch (tag) {
 			
 			case main_bt_stop:
+			case history_bt_top:
+			case history_bt_bottom:
+			case history_bt_prev:
 				
 				v.setBackgroundColor(Color.WHITE);
 				
