@@ -1442,7 +1442,9 @@ public class Methods {
 				
 			}//if (item.length() > 20)
 			
-			textList.add(item);
+//			textList.add(item);
+			
+			textList.add("(" + (i+1) + ")" + item);
 			
 			c.moveToNext();
 			

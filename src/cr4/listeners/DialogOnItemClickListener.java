@@ -1,6 +1,8 @@
 package cr4.listeners;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cr4.main.MainActv;
 
@@ -73,6 +75,23 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 //			String item = textList.get(position);
 			
 			String item = MainActv.textList_full.get(position);
+			
+			Pattern p = Pattern.compile("\\)");
+			
+			Matcher m = p.matcher(item);
+			
+			if (m.matches() && (m.end() < item.length() - 1)) {
+				
+				item = item.substring(m.end(), item.length() - 1);
+				
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "item modified: m.end()=" + m.end());
+				
+			}
+			
 			
 			Methods.set_pref(
 					actv, 
