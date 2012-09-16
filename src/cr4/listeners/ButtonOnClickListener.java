@@ -115,7 +115,7 @@ public class ButtonOnClickListener implements OnClickListener {
 			Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
 			
 			// Log
-			Log.d("Methods.java"
+			Log.d("ButtonOnClickListener.java"
 					+ "["
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]", "set_pref: " + num);
@@ -124,111 +124,42 @@ public class ButtonOnClickListener implements OnClickListener {
 			
 		case history_bt_bottom://---------------------------------------------------------
 			
-//			num = HisActv.textList.size() - 1;
-			num = HisActv.textList.size() - HisActv.lv_history.getChildCount() + 1;
+			case_history_bt_bottom();
 			
-			HisActv.lv_history.setSelection(
-//					HisActv.textList.size() - 1);
-					num);
+////			num = HisActv.textList.size() - 1;
+//			num = HisActv.textList.size() - HisActv.lv_history.getChildCount() + 1;
+//			
+//			HisActv.lv_history.setSelection(
+////					HisActv.textList.size() - 1);
+//					num);
+//			
+//			Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
+//			
+//			// Log
+//			Log.d("ButtonOnClickListener.java"
+//					+ "["
+//					+ Thread.currentThread().getStackTrace()[2]
+//							.getLineNumber() + "]", "set_pref: " + num);
+//			
+//			Log.d("ButtonOnClickListener.java"
+//					+ "["
+//					+ Thread.currentThread().getStackTrace()[2]
+//							.getLineNumber() + "]", 
+//					"HisActv.lv_history.getChildCount(): " + 
+//							HisActv.lv_history.getChildCount());
 			
-			Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
-			
-			// Log
-			Log.d("Methods.java"
-					+ "["
-					+ Thread.currentThread().getStackTrace()[2]
-							.getLineNumber() + "]", "set_pref: " + num);
 			
 			break;// case history_bt_bottom
 
 		case history_bt_prev://---------------------------------------------------------
 			
-			int position = Methods.get_pref(actv, MainActv.pref_main_key_thumlist_position, -1);
-			
-			if (position == -1) {
-
-				// debug
-				Toast.makeText(actv, "position => -1", 2000).show();
-				
-				return;
-				
-			} else {//if (position == -1)
-				
-//				num = position - (HisActv.lv_history.getChildCount() * 2);
-				num = position - HisActv.lv_history.getChildCount();
-				
-				if (num < 0) {
-					
-					HisActv.lv_history.setSelection(0);
-					
-				} else {//if (condition)
-					
-					HisActv.lv_history.setSelection(num);
-					
-				}//if (condition)
-			
-				Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
-				
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "set_pref: " + num);
-				
-//				HisActv.lv_history.setSelection(position - HisActv.lv_history.getChildCount());
-				
-			}//if (position == -1)
-			
+			case_history_bt_prev();
 			
 			break;// case history_bt_prev
 			
 		case history_bt_next://---------------------------------------------------------
 			
-			position = Methods.get_pref(actv, MainActv.pref_main_key_thumlist_position, -1);
-			
-			if (position == -1) {
-
-				// debug
-				Toast.makeText(actv, "position => -1", 2000).show();
-				
-				return;
-				
-			} else {//if (position == -1)
-				
-				num = position + HisActv.lv_history.getChildCount();
-				
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", 
-						"getChildCount(): " + HisActv.lv_history.getChildCount());
-				
-				if (num > HisActv.textList.size() - 1) {
-					
-					num = HisActv.textList.size() - HisActv.lv_history.getChildCount() + 1;
-					
-//					HisActv.lv_history.setSelection(HisActv.textList.size() - 1);
-					HisActv.lv_history.setSelection(num);
-					
-				} else {//if (condition)
-					
-					HisActv.lv_history.setSelection(num);
-					
-				}//if (condition)
-				
-				Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
-				
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "set_pref: " + num);
-				
-//				HisActv.lv_history.setSelection(position - HisActv.lv_history.getChildCount());
-				
-			}//if (position == -1)
-			
+			case_history_bt_next();
 			
 			break;// case history_bt_next
 			
@@ -236,4 +167,124 @@ public class ButtonOnClickListener implements OnClickListener {
 		
 	}//public void onClick(View v)
 
-}
+	private void case_history_bt_bottom() {
+		// TODO Auto-generated method stub
+//		num = HisActv.textList.size() - 1;
+		int num = HisActv.textList.size() - HisActv.lv_history.getChildCount() + 1;
+		
+		HisActv.lv_history.setSelection(
+//				HisActv.textList.size() - 1);
+				num);
+		
+		Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
+		
+		// Log
+		Log.d("ButtonOnClickListener.java"
+				+ "["
+				+ Thread.currentThread().getStackTrace()[2]
+						.getLineNumber() + "]", "set_pref: " + num);
+		
+		Log.d("ButtonOnClickListener.java"
+				+ "["
+				+ Thread.currentThread().getStackTrace()[2]
+						.getLineNumber() + "]", 
+				"HisActv.lv_history.getChildCount(): " + 
+						HisActv.lv_history.getChildCount());
+
+	}//private void case_history_bt_bottom()
+
+	private void case_history_bt_next() {
+		// TODO Auto-generated method stub
+		int position = Methods.get_pref(actv, MainActv.pref_main_key_thumlist_position, -1);
+		
+		int num;
+		
+		if (position == -1) {
+
+			// debug
+			Toast.makeText(actv, "position => -1", 2000).show();
+			
+			return;
+			
+		} else {//if (position == -1)
+			
+			num = position + HisActv.lv_history.getChildCount();
+			
+			// Log
+			Log.d("ButtonOnClickListener.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", 
+					"getChildCount(): " + HisActv.lv_history.getChildCount());
+			
+			if (num > HisActv.textList.size() - 1) {
+				
+				num = HisActv.textList.size() - HisActv.lv_history.getChildCount() + 1;
+				
+//				HisActv.lv_history.setSelection(HisActv.textList.size() - 1);
+				HisActv.lv_history.setSelection(num);
+				
+			} else {//if (condition)
+				
+				HisActv.lv_history.setSelection(num);
+				
+			}//if (condition)
+			
+			Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
+			
+			// Log
+			Log.d("ButtonOnClickListener.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "next: set_pref: " + num);
+			
+//			HisActv.lv_history.setSelection(position - HisActv.lv_history.getChildCount());
+			
+		}//if (position == -1)
+
+	}//private void case_history_bt_next()
+
+	private void case_history_bt_prev() {
+		// TODO Auto-generated method stub
+		int position = Methods.get_pref(actv, MainActv.pref_main_key_thumlist_position, -1);
+		
+		int num;
+		
+		if (position == -1) {
+
+			// debug
+			Toast.makeText(actv, "position => -1", 2000).show();
+			
+			return;
+			
+		} else {//if (position == -1)
+			
+//			num = position - (HisActv.lv_history.getChildCount() * 2);
+			num = position - HisActv.lv_history.getChildCount();
+			
+			if (num < 0) {
+				
+				HisActv.lv_history.setSelection(0);
+				
+			} else {//if (condition)
+				
+				HisActv.lv_history.setSelection(num);
+				
+			}//if (condition)
+		
+			Methods.set_pref(actv, MainActv.pref_main_key_thumlist_position, num);
+			
+			// Log
+			Log.d("ButtonOnClickListener.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "prev: set_pref: " + num);
+			
+//			HisActv.lv_history.setSelection(position - HisActv.lv_history.getChildCount());
+			
+		}//if (position == -1)
+		
+
+	}//private void case_history_bt_prev()
+
+}//public class ButtonOnClickListener implements OnClickListener

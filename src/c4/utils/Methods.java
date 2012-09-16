@@ -1573,7 +1573,13 @@ public class Methods {
 		long l_position = (long) position;
 		
 		String item = (String) lv.getItemAtPosition(position);
-		item = item.substring(0, 20);
+		
+		if (item.length() > 20) {
+			
+			item = item.substring(0, 20);
+			
+		}
+//		item = item.substring(0, 20);
 		
 		// created_at
 		long created_at = Methods.getMillSeconds_now();
