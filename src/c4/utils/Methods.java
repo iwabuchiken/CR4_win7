@@ -59,6 +59,7 @@ import org.apache.commons.lang.StringUtils;
 
 import cr4.listeners.DialogButtonOnClickListener;
 import cr4.listeners.DialogButtonOnTouchListener;
+import cr4.listeners.DialogListener;
 import cr4.listeners.DialogOnItemClickListener;
 import cr4.main.HisActv;
 import cr4.main.MainActv;
@@ -322,21 +323,21 @@ public class Methods {
 
 	public static void confirm_quit(Activity actv, int keyCode) {
 		
-//		// TODO 自動生成されたメソッド・スタブ
-//		if (keyCode==KeyEvent.KEYCODE_BACK) {
-//			
-//			AlertDialog.Builder dialog=new AlertDialog.Builder(actv);
-//			
-//	        dialog.setTitle("アプリの終了");
-//	        dialog.setMessage("アプリを終了しますか？");
-//	        
-//	        dialog.setPositiveButton("終了",new DialogListener(actv, dialog, 0));
-//	        dialog.setNegativeButton("キャンセル",new DialogListener(actv, dialog, 1));
-//	        
-//	        dialog.create();
-//	        dialog.show();
-//			
-//		}//if (keyCode==KeyEvent.KEYCODE_BACK)
+		// TODO 自動生成されたメソッド・スタブ
+		if (keyCode==KeyEvent.KEYCODE_BACK) {
+			
+			AlertDialog.Builder dialog=new AlertDialog.Builder(actv);
+			
+	        dialog.setTitle("アプリの終了");
+	        dialog.setMessage("アプリを終了しますか？");
+	        
+	        dialog.setPositiveButton("終了",new DialogListener(actv, dialog, 0));
+	        dialog.setNegativeButton("キャンセル",new DialogListener(actv, dialog, 1));
+	        
+	        dialog.create();
+	        dialog.show();
+			
+		}//if (keyCode==KeyEvent.KEYCODE_BACK)
 		
 	}//public static void confirm_quit(Activity actv, int keyCode)
 

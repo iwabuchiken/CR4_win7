@@ -26,6 +26,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -573,5 +574,13 @@ public class MainActv extends ListActivity implements TextToSpeech.OnInitListene
 		// TODO 自動生成されたメソッド・スタブ
 		
 	}
-    
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		Methods.confirm_quit(this, keyCode);
+		
+		return super.onKeyDown(keyCode, event);
+	}
+
 }//public class MainActv extends ListActivity
