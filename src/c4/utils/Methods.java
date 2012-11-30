@@ -28,6 +28,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -63,6 +64,7 @@ import cr4.listeners.DialogListener;
 import cr4.listeners.DialogOnItemClickListener;
 import cr4.main.HisActv;
 import cr4.main.MainActv;
+import cr4.main.PrefActv;
 import cr4.main.R;
 
 public class Methods {
@@ -1158,7 +1160,23 @@ public class Methods {
 		 * 	start the dialog
 		 *********************************/
 		
-		if (false) {
+		SharedPreferences prefs = 
+//				actv.getSharedPreferences(MainActv.prefName_main, actv.MODE_PRIVATE);
+				actv.getSharedPreferences(
+						actv.getString(R.string.prefs_shared_prefs_name),
+						Context.MODE_PRIVATE);
+
+		boolean text_from_web = 
+				prefs.getBoolean(
+						actv.getString(R.string.prefs_key_texts_from_web),
+						false);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "text_from_web=" + text_from_web);
+		
+		if (text_from_web) {
 
 			//debug *******************************
 			Task_RegisterText task = new Task_RegisterText(actv);
@@ -1754,6 +1772,19 @@ public class Methods {
 		return hm;
 		
 	}//public static HashMap<String, Integer> convert_to_histogram(String[] data)
+
+	
+	public static void start_pref_actv(Activity actv) {
+		
+		Intent i = new Intent();
+		
+		i.setClass(actv, PrefActv.class);
+		
+//		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+		
+	}//public static void start_pref_actv(Activity actv)
 	
 }//public class Methods
 

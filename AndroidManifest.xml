@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".HisActv" android:screenOrientation="portrait"></activity>
+        <activity android:name=".PrefActv"></activity>
     </application>
 
 </manifest>

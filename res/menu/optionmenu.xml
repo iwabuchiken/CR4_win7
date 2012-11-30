@@ -20,6 +20,13 @@
 		android:icon="@android:drawable/ic_menu_agenda">
         
     </item>
+
+    <item 
+        android:id="@+id/main_menu_preference"
+		android:title="@string/main_menu_preference"
+		android:icon="@android:drawable/ic_menu_preferences">
+        
+    </item>
     
 
 </menu>

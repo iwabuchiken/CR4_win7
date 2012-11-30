@@ -41,6 +41,8 @@
 		<string name="main_menu_register_texts">テキスト登録</string>
 		<string name="main_menu_choose_text">テキスト選択</string>
 		<string name="main_menu_history">履歴</string>
+		<string name="main_menu_preference">設定</string>
+		
 
 	<!-- dlg_register_texts.xml -->
 		<string name="dlg_register_texts_title">テキスト登録</string>
@@ -55,6 +57,10 @@
 		<string name="history_bt_ret">Ret</string>
 		<string name="history_bt_prev">P</string>
 		<string name="history_bt_next">N</string>
-		
+	
+	<!-- xml\preferences.xml -->
+		<string name="prefs_title_texts_from_web">Get text from web</string>
+		<string name="prefs_key_texts_from_web">text_from_web</string>
+		<string name="prefs_shared_prefs_name">cr4_prefs</string>
 		
 </resources>
