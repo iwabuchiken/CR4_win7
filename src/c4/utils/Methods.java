@@ -1152,18 +1152,55 @@ public class Methods {
 	}//private static void start_speech_speak(String text)
 
 	public static void dlg_register_texts(Activity actv) {
-		/*----------------------------
-		 * memo
-			----------------------------*/
-		Dialog dlg = Methods.dlg_template_okCancel(actv, 
-													R.layout.dlg_register_texts, R.string.main_menu_register_texts,
-													R.id.dlg_register_texts_bt_ok, R.id.dlg_register_texts_bt_cancel,
-													Methods.DialogTags.dlg_register_texts_ok, Methods.DialogTags.dlg_generic_dismiss);
+		/*********************************
+		 * 20121130_123744
+		 * If the option is set, then start task; if not, then
+		 * 	start the dialog
+		 *********************************/
 		
-		dlg.show();
+		if (false) {
+
+			//debug *******************************
+			Task_RegisterText task = new Task_RegisterText(actv);
+			
+			// debug
+			Toast.makeText(actv, "Task_RegisterText => Starts", Toast.LENGTH_SHORT).show();
+			
+			task.execute(0);
+			
+			// ******************************* debug
+	
+		} else {//if (false)			
+			/*----------------------------
+			 * memo
+				----------------------------*/
+			Dialog dlg = Methods.dlg_template_okCancel(
+							actv, 
+							R.layout.dlg_register_texts,
+							R.string.main_menu_register_texts,
+							R.id.dlg_register_texts_bt_ok, R.id.dlg_register_texts_bt_cancel,
+							Methods.DialogTags.dlg_register_texts_ok,
+							Methods.DialogTags.dlg_generic_dismiss);
+			
+			dlg.show();
+			
+		}//if (false)
+		
+			
+		
 	}//public static void dlg_register_texts(MainActv mainActv)
 
 	public static void register_texts(Activity actv, Dialog dlg) {
+		
+//		//debug
+//		Task_RegisterText task = new Task_RegisterText(actv);
+//		
+//		// debug
+//		Toast.makeText(actv, "Task_RegisterText => Starts", Toast.LENGTH_SHORT).show();
+//		
+//		task.execute(0);
+		
+		
 		/*----------------------------
 		 * 1. Get data
 		 * 1-2. Dismiss dlg
@@ -1328,6 +1365,20 @@ public class Methods {
 		long modified_at = Methods.getMillSeconds_now();
 		
 		Object[] values = {text, "", created_at, modified_at, "", ""};
+		
+		return dbu.insertData(wdb, MainActv.tableName_chinese_texts, MainActv.cols_texts, values);
+		
+	}//private static boolean insertData_text()
+
+	private static boolean insertData_text(SQLiteDatabase wdb, DBUtils dbu,
+			String text, String url) {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		long created_at = Methods.getMillSeconds_now();
+		long modified_at = Methods.getMillSeconds_now();
+		
+		Object[] values = {text, url, created_at, modified_at, "", ""};
 		
 		return dbu.insertData(wdb, MainActv.tableName_chinese_texts, MainActv.cols_texts, values);
 		
