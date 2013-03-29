@@ -1,8 +1,8 @@
 a
 cd C:\WORKS\WS\WS_Android~\CR4
-C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android\FM\CR4\CR4.mm
 gitk
 
+C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android\FM\CR4\CR4.mm
 
 C:\WORKS\WORKSPACES_ANDROID\FM\a
 

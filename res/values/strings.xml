@@ -62,5 +62,7 @@
 		<string name="prefs_title_texts_from_web">Get text from web</string>
 		<string name="prefs_key_texts_from_web">text_from_web</string>
 		<string name="prefs_shared_prefs_name">cr4_prefs</string>
+		<string name="prefs_title_history_size">History size</string>
+		<string name="prefs_key_history_size">prefs_key_history_size</string>
 		
 </resources>

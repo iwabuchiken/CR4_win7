@@ -118,8 +118,10 @@ public final class R {
         /**  optionmenu.xml 
          */
         public static final int main_menu_register_texts=0x7f060017;
+        public static final int prefs_key_history_size=0x7f060029;
         public static final int prefs_key_texts_from_web=0x7f060026;
         public static final int prefs_shared_prefs_name=0x7f060027;
+        public static final int prefs_title_history_size=0x7f060028;
         /**  xml\preferences.xml 
          */
         public static final int prefs_title_texts_from_web=0x7f060025;
